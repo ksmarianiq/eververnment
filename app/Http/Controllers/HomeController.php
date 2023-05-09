@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Organisateur;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -33,6 +34,6 @@ class HomeController extends Controller
 
     public function adminHome()
     {
-        return view('home',["msg"=>"I am Admin role"]);
+        return view('Admin.index');
     }
 }
