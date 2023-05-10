@@ -291,7 +291,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="admin-agence.html" class="nav-link">
+                                    <a href="{{ route('Evenement.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Evénements</p>
                                     </a>
@@ -313,37 +313,6 @@
                             </ul>
                         </li>
                         <!-- -->
-                        <li class="nav-item">
-                            <a href="javascript:void(0);" class="nav-link ">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Politiques
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="admin-confidentialites.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Confidentialités</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="admin-mentions-legale.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Mentions legales</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="admin-condition-generale.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Condition générale</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-
                         <li class="nav-item">
                             <a href="javascript:void(0);" class="nav-link ">
                                 <i class="nav-icon fas fa-cogs"></i>

@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('organisateurs', function (Blueprint $table) {
             $table->id();
-            $table->String('nomOrg');
-            $table->String('num1Org');
-            $table->String('num2Org');
-            $table->String('emailOrg');
-            $table->String('whatsappNum');
+            $table->String('nomOrg')->nullable();
+            $table->String('num1Org')->nullable();
+            $table->String('num2Org')->nullable();
+            $table->String('emailOrg')->nullable();
+            $table->String('whatsappNum')->nullable();
             $table->timestamps();
         });
     }

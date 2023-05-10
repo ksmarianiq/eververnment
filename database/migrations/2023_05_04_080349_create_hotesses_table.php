@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('hotesses', function (Blueprint $table) {
             $table->id();
-            $table->String('nomHote');
-            $table->String('emailHote');
-            $table->String('telephoneHote');
-            $table->bigInteger('evn_id')->unsigned();
+            $table->String('nomHote')->nullable();
+            $table->String('emailHote')->nullable();
+            $table->String('telephoneHote')->nullable();
+            $table->bigInteger('evn_id')->unsigned()->nullable();
             $table->foreign('evn_id')->references('id')->on('evenements');
 
             $table->timestamps();

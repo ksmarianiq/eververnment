@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('autreInfos', function (Blueprint $table) {
             $table->id();
-            $table->String('titre');
-            $table->String('infCheckBox');
-            $table->String('codeAutre');
-            $table->String('qrCodeAutre');
-            $table->bigInteger('evn_id')->unsigned();
+            $table->String('titre')->nullable();
+            $table->String('infCheckBox')->nullable();
+            $table->String('codeAutre')->nullable();
+            $table->String('qrCodeAutre')->nullable();
+            $table->bigInteger('evn_id')->unsigned()->nullable();
             $table->foreign('evn_id')->references('id')->on('evenements');
 
             $table->timestamps();

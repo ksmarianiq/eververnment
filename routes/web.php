@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\EvenementCtrl;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrganisateurCtrl;
+use App\Models\Evenement;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -37,7 +39,14 @@ Route::middleware(['auth','user-role:editor'])->group(function()
 Route::middleware(['auth','user-role:admin'])->group(function()
 {
     Route::get("/admin/home",[HomeController::class,'adminHome'])->name('home.admin');
+
+
     Route::resource('/organisateur',OrganisateurCtrl::class);
     Route::put("/update",[OrganisateurCtrl::class,'update'])->name('update-organisation');
     Route::delete("/delete",[OrganisateurCtrl::class,'destroy'])->name('delete-organisation');
+
+
+    Route::resource('/Evenement',EvenementCtrl::class);
+    Route::put("/updateEv",[EvenementCtrl::class,'update'])->name('update-evenement');
+    Route::delete("/deleteEv",[EvenementCtrl::class,'destroy'])->name('delete-evenement');
 });

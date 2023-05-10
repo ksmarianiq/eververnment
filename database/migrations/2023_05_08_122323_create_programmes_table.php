@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('programmes', function (Blueprint $table) {
             $table->id();
-            $table->String('libeler');
-            $table->String('date');
-            $table->String('heure');
-            $table->String('lieu');
-            $table->String('description');
-            $table->bigInteger('evn_id')->unsigned();
+            $table->String('libeler')->nullable();
+            $table->String('date')->nullable();
+            $table->String('heure')->nullable();
+            $table->String('lieu')->nullable();
+            $table->String('description')->nullable();
+            $table->bigInteger('evn_id')->unsigned()->nullable();
             $table->foreign('evn_id')->references('id')->on('evenements');
             $table->timestamps();
         });

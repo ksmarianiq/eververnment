@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('invites', function (Blueprint $table) {
             $table->id();
-            $table->String('nomInv');
-            $table->String('telephoneInv');
-            $table->String('emailInv');
-            $table->String('nbreInv');
-            $table->String('codeInv');
-            $table->String('qrCodeInv');
+            $table->String('nomInv')->nullable();
+            $table->String('telephoneInv')->nullable();
+            $table->String('emailInv')->nullable();
+            $table->String('nbreInv')->nullable();
+            $table->String('codeInv')->nullable();
+            $table->String('qrCodeInv')->nullable();
             $table->bigInteger('evn_id')->unsigned();
-            $table->foreign('evn_id')->references('id')->on('evenements');
+            $table->foreign('evn_id')->references('id')->on('evenements')->nullable();
             $table->bigInteger('ivn_table_id')->unsigned();
             $table->foreign('ivn_table_id')->references('id')->on('ivn_tables');
 

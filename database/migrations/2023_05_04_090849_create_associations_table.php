@@ -15,12 +15,10 @@ return new class extends Migration
     {
         Schema::create('associations', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('hote_id')->unsigned();
+            $table->bigInteger('hote_id')->unsigned()->nullable();
             $table->foreign('hote_id')->references('id')->on('hotesses');
-            $table->bigInteger('ivn_table_id')->unsigned();
+            $table->bigInteger('ivn_table_id')->unsigned()->nullable();
             $table->foreign('ivn_table_id')->references('id')->on('ivn_tables');
-
-
 
             $table->timestamps();
         });
