@@ -297,7 +297,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="admin-section.html" class="nav-link">
+                                    <a href="{{ route('programme.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Programmes</p>
                                     </a>

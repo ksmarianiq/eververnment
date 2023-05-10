@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Evenement;
 use Illuminate\Http\Request;
-
+use App\Models\Organisateur;
+use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
+use RealRashid\SweetAlert\Facades\Alert;
 class EvenementCtrl extends Controller
 {
     /**
@@ -15,7 +18,8 @@ class EvenementCtrl extends Controller
     public function index()
     {
         $Eve=Evenement::all();
-        return view('Admin.pages.File_Evenement.Evenement',compact('Eve'));
+        $org=Organisateur::all();
+        return view('Admin.pages.File_Evenement.Evenement',compact('Eve','org'));
     }
 
     /**
@@ -36,7 +40,29 @@ class EvenementCtrl extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = array(
+            'nomEvn' =>  'required',
+            'org_id' =>  'required',
+        );
+
+        $error = Validator::make($request->all(), $rules);
+
+        if($error->fails())
+        {
+            Alert::danger('Message','Add error');
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+
+
+
+        $form_data = array(
+            'nomEvn' =>   $request->nomEvn,
+            'org_id' =>   $request->org_id,
+        );
+
+        Evenement::create($form_data);
+        Alert::success('Message','Add successfully');
+        return redirect()->route('Evenement.index');
     }
 
     /**
@@ -58,7 +84,11 @@ class EvenementCtrl extends Controller
      */
     public function edit($id)
     {
-        //
+        $Eve=Evenement::find($id);
+        return response()->json([
+           'status'=>200,
+           'Evenement'=>$Eve,
+        ]);
     }
 
     /**
@@ -68,9 +98,15 @@ class EvenementCtrl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $Eve_id=$request->input('id');
+        $Eve=Evenement::find($Eve_id);
+        $Eve->nomEvn= $request->input('nomEvn');
+        $Eve->org_id= $request->input('org_id');
+        $Eve->save();
+        Alert::success('Message','Update successfully');
+        return redirect()->route('Evenement.index');
     }
 
     /**
@@ -79,8 +115,12 @@ class EvenementCtrl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $data= $request->input('deleteEve');
+        $data=Evenement::find($data);
+        $data->delete();
+        Alert::success('Message','Delete successfully');
+        return redirect()->route('Evenement.index');
     }
 }

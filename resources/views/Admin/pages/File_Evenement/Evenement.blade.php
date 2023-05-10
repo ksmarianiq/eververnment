@@ -49,20 +49,19 @@
                     @foreach ($Eve as $item)
                         <tr>
                             <td>{{ $item->nomEvn }}</td>
-                            <td>{{ $item->org_id }}</td>
+                            <td>{{ $item->organisateur->nomOrg }}</td>
                             <td>
                                 <div class=" d-flex grid ">
                                     <div class="g-col-4">
                                         <div class="editbtn" type="button" value="{{$item->id}}" >
-                                            <i class="fa fa-edit" style="color: #0b3544;"></i>
+                                             <i class="fa fa-edit" style="color: #0b3544;"></i>
                                         </div>
                                     </div>
                                     <div class="g-col-4 ml-3">
                                         <div class="deletebtn" type="button" value="{{$item->id}}" >
-                                            <i  class="fa fa-trash" style="color: #ec270d;"></i>
+                                             <i  class="fa fa-trash" style="color: #ec270d;"></i>
                                         </div>
                                     </div>
-
                             </td>
                         </tr>
                     @endforeach
@@ -107,11 +106,10 @@
                type: "GET",
                url: "{{ route('Evenement.edit', ':id') }}".replace(':id', id),
                success: function(response) {
-                  // console.log(response.Evenement.id);
+                  console.log(response);
                   $('#nomEvn').val(response.Evenement.nomEvn);
                   $('#org_id').val(response.Evenement.org_id);
                   $('#id').val(response.Evenement.id);
-
                }
            })
        });

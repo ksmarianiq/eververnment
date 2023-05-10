@@ -25,19 +25,18 @@
                                     <select class="form-control" id="org_id" value="" name="org_id"
                                         style=" height:43px;" required>
                                         <option selected>Choisir un nom</option>
-                                        <option value=""></option>
+                                        @foreach ($org as $item)
+                                          <option value="{{$item->id}}">{{$item->nomOrg}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-danger   pull-left" data-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fermer</button>
                         <button type="submit" class="btn  btn-primary" id="btnFormEnreg">Enregistrer</button>
                     </div>
-
                 </div>
             </form>
         </div>

@@ -15,11 +15,15 @@ return new class extends Migration
     {
         Schema::create('programmes', function (Blueprint $table) {
             $table->id();
-            $table->String('libeler')->nullable();
-            $table->String('date')->nullable();
-            $table->String('heure')->nullable();
-            $table->String('lieu')->nullable();
-            $table->String('description')->nullable();
+            $table->String('libProg')->nullable();
+            $table->String('dateProg')->nullable();
+            $table->String('heureProg')->nullable();
+            $table->String('lieuProg')->nullable();
+            $table->String('descriptionProg')->nullable();
+            $table->String('longitude')->nullable();
+            $table->String('latitude')->nullable();
+            $table->String('codeProg')->nullable();
+            $table->String('qrCodeProg')->nullable();
             $table->bigInteger('evn_id')->unsigned()->nullable();
             $table->foreign('evn_id')->references('id')->on('evenements');
             $table->timestamps();

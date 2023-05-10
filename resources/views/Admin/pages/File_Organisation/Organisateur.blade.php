@@ -39,7 +39,6 @@
             <table id="example2" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-
                         <th>Nom Organisateur</th>
                         <th>Email</th>
                         <th>N° Téléphone 1</th>
@@ -98,7 +97,7 @@
 @endsection
 @section('script')
 
-   
+
 <script>
     $(document).ready(function() {
         $(document).on('click', '.deletebtn', function() {

@@ -17,6 +17,7 @@
                                     <label class="control-label" for="nomEvn">Nom Evenement </label>
                                     <input type="text" id="nomEvn" class="form-control" value=""
                                         name="nomEvn" style=" height:43px;" required />
+                                     <input type="hidden" class="form-control" id="id" value="" name="id" style=" height:43px;" required />
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -24,8 +25,9 @@
                                     <label class="control-label" for="org_id">Nom Organisateur </label>
                                     <select class="form-control" id="org_id" value="" name="org_id"
                                         style=" height:43px;" required>
-                                        <option selected>Choisir un nom</option>
-                                        <option value=""></option>
+                                        @foreach ($org as $item)
+                                          <option value="{{$item->id}}">{{$item->nomOrg}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
