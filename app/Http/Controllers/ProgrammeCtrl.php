@@ -7,6 +7,7 @@ use App\Models\Programme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ProgrammeCtrl extends Controller
 {
@@ -19,6 +20,7 @@ class ProgrammeCtrl extends Controller
     {
         $prog=Programme::all();
         $Eve=Evenement::all();
+       
         return view('Admin.pages.File_Programme.Programme',compact('prog','Eve'));
     }
 
@@ -68,7 +70,7 @@ class ProgrammeCtrl extends Controller
             'dateProg' =>   $request->dateProg,
             'heureProg' =>   $request->heureProg,
             'lieuProg' =>   $request->lieuProg,
-            'descriptionProg' =>   $request->descriptionProg,
+            'descriptionProg' =>  strip_tags($request->descriptionProg),
             'evn_id' =>   $request->evn_id,
             'latitude' =>   $request->latitude,
             'longitude' =>   $request->longitude,

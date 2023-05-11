@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('ivn_tables', function (Blueprint $table) {
             $table->id();
-            $table->String('nomTable')->nullable();
-            $table->String('nbrePlace')->nullable();
-            $table->String('description')->nullable();
+            $table->String('nomTableInv')->nullable();
+            $table->String('nbrePlaceInv')->nullable();
+            $table->text('descriptionInv')->nullable();
             $table->bigInteger('evn_id')->unsigned()->nullable();
             $table->foreign('evn_id')->references('id')->on('evenements');
             $table->timestamps();

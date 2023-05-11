@@ -36,7 +36,7 @@
                 style="background-color:#0b3544;" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
                     class="fas fa-plus-circle"></i> <span>Ajouter un Evenement</span></a>
 
-                <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <table id="dtBasictable-a" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>Nom Evenement</th>
@@ -65,14 +65,6 @@
                         </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
-                    <tr>
-
-                        <th>Nom Evenement</th>
-                        <th>Nom organisateur</th>
-                        <th>Actions</th>
-                    </tr>
-                </tfoot>
             </table>
         </div>
         <!-- /.card-body -->
@@ -86,8 +78,6 @@
 
 @endsection
 @section('script')
-
-
 <script>
     $(document).ready(function() {
         $(document).on('click', '.deletebtn', function() {
@@ -121,7 +111,6 @@
                 height: 100,
                 placeholder: 'Entrer un texte',
             });
-
             // CodeMirror
             CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
                 mode: "htmlmixed",
@@ -131,7 +120,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#dtBasicExample').DataTable({
+            $('#dtBasictable-a').DataTable({
                 "processing": true,
                 "paging": true,
                 "lengthChange": true,
@@ -141,7 +130,7 @@
                 "autoWidth": false,
                 "responsive": true,
                 "scrollX": true,
-                "scrollY": 150,
+                "scrollY": false,
             });
             $('.dataTables_length').addClass('bs-select');
         });

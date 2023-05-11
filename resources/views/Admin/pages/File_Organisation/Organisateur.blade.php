@@ -140,7 +140,7 @@
                 "autoWidth": false,
                 "responsive": true,
                 "scrollX": true,
-                "scrollY": 150,
+                "scrollY": false,
             });
             $('.dataTables_length').addClass('bs-select');
         });

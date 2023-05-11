@@ -36,7 +36,7 @@
                 style="background-color:#0b3544;" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
                     class="fas fa-plus-circle"></i> <span>Ajouter un Programme</span></a>
 
-            <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <table id="dtBasictable-b" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>Libelées </th>
@@ -46,7 +46,6 @@
                         <th>Evénements</th>
                         <th>Latitudes</th>
                         <th>Longitude</th>
-                        <th>Codes</th>
                         <th>QR code</th>
                         <th>Descriptions</th>
                         <th>Actions</th>
@@ -62,8 +61,7 @@
                             <td>{{ $item->evenement->nomEvn }}</td>
                             <td>{{ $item->latitude }}</td>
                             <td>{{ $item->longitude }}</td>
-                            <td>{{ $item->codeProg }}</td>
-                            <td>{{ $item->qrCodeProg }}</td>
+                            <td>{{ QrCode::size(80)->generate($item->codeProg) }}</td>
                             <td class="text-truncate">{{ $item->descriptionProg }}</td>
                             <td>
                                 <div class=" d-flex grid ">
@@ -138,7 +136,7 @@
                 result += characters.charAt(Math.floor(Math.random() * charactersLength));
             }
             return result;
-        }
+        } "scrollY": 200,
 
         // Générer une référence aléatoire en combinant des lettres et des chiffres
         function generateProductReference() {
@@ -169,7 +167,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#dtBasicExample').DataTable({
+            $('#dtBasictable-b').DataTable({
                 "processing": true,
                 "paging": true,
                 "lengthChange": true,
@@ -179,7 +177,7 @@
                 "autoWidth": false,
                 "responsive": true,
                 "scrollX": true,
-                "scrollY": 150,
+                "scrollY": false,
             });
             $('.dataTables_length').addClass('bs-select');
         });

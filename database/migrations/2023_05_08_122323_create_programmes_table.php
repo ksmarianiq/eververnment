@@ -19,7 +19,7 @@ return new class extends Migration
             $table->String('dateProg')->nullable();
             $table->String('heureProg')->nullable();
             $table->String('lieuProg')->nullable();
-            $table->String('descriptionProg')->nullable();
+            $table->text('descriptionProg')->nullable();
             $table->String('longitude')->nullable();
             $table->String('latitude')->nullable();
             $table->String('codeProg')->nullable();
