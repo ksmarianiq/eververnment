@@ -15,14 +15,14 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label" for="nomOrg">Nom Organisateur </label>
-                                    <input type="text" class="form-control"  value="" name="nomOrg"
+                                    <input type="text" class="form-control" value="" name="nomOrg"
                                         style=" height:43px;" required />
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label" for="emailOrg">Email</label>
-                                    <input type="text" class="form-control" value="" name="emailOrg"
+                                    <input type="email" class="form-control" value="" name="emailOrg"
                                         style=" height:43px;" required />
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                             <div class="col-sm">
                                 <div class="form-group">
                                     <label class="control-label" for="num1Org">N° Téléphone 1</label>
-                                    <input type="text" class="form-control"  value="" name="num1Org" required />
+                                    <input type="text" class="form-control" value="" name="num1Org" required />
                                 </div>
                             </div>
                         </div>
@@ -57,8 +57,7 @@
 
 
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-danger   pull-left"
-                            data-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-danger   pull-left" data-dismiss="modal">Fermer</button>
                         <button type="submit" class="btn  btn-primary" id="btnFormEnreg">Enregistrer</button>
                     </div>
 

@@ -24,7 +24,7 @@
 
     <div class="card">
         <div class="card-header" style="background-color:#0b3544;">
-            <h2 class="card-title text-white fw-bolder">Organisateurs</h2>
+            <h2 class="card-title text-white fw-bolder">Programmes</h2>
             <div class="card-tools">
 
             </div>
@@ -34,27 +34,37 @@
         <div class="card-body">
             <a id="btnModalFormOrganisteur" href="#modalFormOrganisteur" class="btn text-white mb-4"
                 style="background-color:#0b3544;" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
-                    class="fas fa-plus-circle"></i> <span>Ajouter un Oraganisteur</span></a>
+                    class="fas fa-plus-circle"></i> <span>Ajouter un Programme</span></a>
 
             <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Nom Organisateur</th>
-                        <th>Email</th>
-                        <th>N° Téléphone 1</th>
-                        <th>N° Téléphone 2</th>
-                        <th>N° Whatsapp</th>
+                        <th>Libelées </th>
+                        <th>Dates</th>
+                        <th>Heures</th>
+                        <th>Lieux</th>
+                        <th>Evénements</th>
+                        <th>Latitudes</th>
+                        <th>Longitude</th>
+                        <th>Codes</th>
+                        <th>QR code</th>
+                        <th>Descriptions</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($org as $item)
+                    @foreach ($prog as $item)
                         <tr>
-                            <td>{{ $item->nomOrg }}</td>
-                            <td>{{ $item->num1Org }}</td>
-                            <td>{{ $item->num2Org }} </td>
-                            <td>{{ $item->emailOrg }}</td>
-                            <td>{{ $item->whatsappNum }}</td>
+                            <td>{{ $item->libProg }}</td>
+                            <td>{{ $item->dateProg }}</td>
+                            <td>{{ $item->heureProg }} </td>
+                            <td>{{ $item->lieuProg }}</td>
+                            <td>{{ $item->evenement->nomEvn }}</td>
+                            <td>{{ $item->latitude }}</td>
+                            <td>{{ $item->longitude }}</td>
+                            <td>{{ $item->codeProg }}</td>
+                            <td>{{ $item->qrCodeProg }}</td>
+                            <td class="text-truncate">{{ $item->descriptionProg }}</td>
                             <td>
                                 <div class=" d-flex grid ">
                                     <div class="g-col-4">
@@ -67,18 +77,20 @@
                                             <i class="fa fa-trash" style="color: #ec270d;"></i>
                                         </div>
                                     </div>
+
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
+
             </table>
         </div>
         <!-- /.card-body -->
     </div>
     <!-- Modal-->
-    @include('Admin.pages.File_Organisation.deleteOrganisateur')
-    @include('Admin.pages.File_Organisation.editOrganisateur')
-    @include('Admin.pages.File_Organisation.addOrganisateur')
+    @include('Admin.pages.File_Programme.deleteProgramme')
+    @include('Admin.pages.File_Programme.editProgramme')
+    @include('Admin.pages.File_Programme.addProgramme')
 
     <!-- Modal-->
 @endsection
@@ -98,20 +110,47 @@
                 $('#ModalEdit').modal('show');
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('organisateur.edit', ':id') }}".replace(':id', id),
+                    url: "{{ route('programme.edit', ':id') }}".replace(':id', id),
                     success: function(response) {
-                        // console.log(response.organisateur.id);
-                        $('#nomOrg').val(response.organisateur.nomOrg);
-                        $('#num1Org').val(response.organisateur.num1Org);
-                        $('#num2Org').val(response.organisateur.num2Org);
-                        $('#emailOrg').val(response.organisateur.emailOrg);
-                        $('#whatsappNum').val(response.organisateur.whatsappNum);
-                        $('#id').val(response.organisateur.id);
-
+                        // console.log(response.programme.id);
+                        $('#libProg').val(response.programme.libProg);
+                        $('#dateProg').val(response.programme.dateProg);
+                        $('#heureProg').val(response.programme.heureProg);
+                        $('#lieuProg').val(response.programme.lieuProg);
+                        $('#descriptionProg').summernote("code", response.programme
+                            .descriptionProg);
+                        $('#evn_id').val(response.programme.evn_id);
+                        $('#latitude').val(response.programme.latitude);
+                        $('#longitude').val(response.programme.longitude);
+                        $('#id').val(response.programme.id);
                     }
                 })
             });
         });
+    </script>
+    <script>
+        // Générer une chaîne de caractères aléatoire de longueur donnée
+        function generateRandomString(length) {
+            var result = "";
+            var characters = "0123456789";
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+
+        // Générer une référence aléatoire en combinant des lettres et des chiffres
+        function generateProductReference() {
+            var numbers = generateRandomString(4);
+            return numbers;
+        }
+
+        // Récupérer le champ de saisie
+        var input = document.getElementById("reference");
+
+        // Générer une référence aléatoire et l'afficher dans le champ de saisie
+        input.value = generateProductReference();
     </script>
     <script>
         $(function() {

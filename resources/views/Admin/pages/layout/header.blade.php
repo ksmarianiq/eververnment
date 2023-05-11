@@ -11,7 +11,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/dist/css/code.ionicframework.min.css') }}">
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet"
         href="{{ asset('assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
@@ -41,13 +41,12 @@
         href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <!-- Ekko Lightbox -->
-    <link rel="stylesheet" href=".{{ asset('assets/lugins/ekko-lightbox/ekko-lightbox.css') }}">
+    <link rel="stylesheet" href=".{{ asset('assets/plugins/ekko-lightbox/ekko-lightbox.css') }}">
     <!-- sweet alter -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
-        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <!---->
-      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <script src="{{ asset('assets/build/js/sweetalert.min.js') }}" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <link rel="stylesheet" href="{{ asset('assets/dist/css/material.icon.css') }}">
 
 
 
@@ -467,36 +466,13 @@
     <!-- Page specific script -->
 
     @yield('script')
-    <script>
-        $(function() {
-            // Summernote
-            $('#summernote').summernote({
-                height: 100,
-                placeholder: 'Entrer un texte',
-            });
 
-            // CodeMirror
-            CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-                mode: "htmlmixed",
-                theme: "monokai"
-            });
-        })
-    </script>
 
     <script>
-        $(document).ready(function () {
-             $('#example2').DataTable();
-        });
+
         $(function() {
-            $('#example').DataTable({
-                "processing": true,
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": true,
-                "responsive": true,
+            $('#example2').DataTable({
+
             });
         });
 
@@ -529,31 +505,7 @@
         });
     </script>
 
-    <script>
-        // Générer une chaîne de caractères aléatoire de longueur donnée
-        function generateRandomString(length) {
-            var result = "";
-            var characters = "ABCDEFGHIJKLMNOPQRSTUV0123456789WXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            var charactersLength = characters.length;
-            for (var i = 0; i < length; i++) {
-                result += characters.charAt(Math.floor(Math.random() * charactersLength));
-            }
-            return result;
-        }
 
-        // Générer une référence aléatoire en combinant des lettres et des chiffres
-        function generateProductReference() {
-            var letters = generateRandomString(2);
-            var numbers = generateRandomString(4);
-            return letters + numbers;
-        }
-
-        // Récupérer le champ de saisie
-        var input = document.getElementById("reference");
-
-        // Générer une référence aléatoire et l'afficher dans le champ de saisie
-        input.value = generateProductReference();
-    </script>
 
 
 

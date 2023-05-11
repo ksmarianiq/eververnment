@@ -1,9 +1,9 @@
-<div class="modal fade"  id="ModalEdit" >
+<div class="modal fade" id="ModalEdit">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content ">
-            <form  action="{{ route('update-organisation') }}" data-toggle="validator" role="form" method="POST">
-               @csrf
-               @method('PUT')
+            <form action="{{ route('update-organisation') }}" data-toggle="validator" role="form" method="POST">
+                @csrf
+                @method('PUT')
                 <div class="modal-header py-1" style="background-color:#0b3544;">
                     <h4 class="modal-title text-white">Modification</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -15,14 +15,16 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label" for="nomOrg">Nom Organisateur </label>
-                                    <input type="text" class="form-control" id="nomOrg" name="nomOrg" style=" height:43px;" required />
-                                    <input type="hidden" class="form-control" id="id" value="" name="id" style=" height:43px;" required />
+                                    <input type="text" class="form-control" id="nomOrg" name="nomOrg"
+                                        style=" height:43px;" required />
+                                    <input type="hidden" class="form-control" id="id" value=""
+                                        name="id" style=" height:43px;" required />
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label" for="emailOrg">Email</label>
-                                    <input type="text" class="form-control" id="emailOrg" name="emailOrg"
+                                    <input type="email" class="form-control" id="emailOrg" name="emailOrg"
                                         style=" height:43px;" required />
                                 </div>
                             </div>
@@ -48,7 +50,8 @@
                             <div class="col-sm">
                                 <div class="form-group">
                                     <label class="control-label" for="whatsappNum">N° Whatsapp</label>
-                                    <input type="text" class="form-control" id="whatsappNum" name="whatsappNum" required />
+                                    <input type="text" class="form-control" id="whatsappNum" name="whatsappNum"
+                                        required />
                                 </div>
                             </div>
                         </div>
