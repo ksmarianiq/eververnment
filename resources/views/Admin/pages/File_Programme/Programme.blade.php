@@ -115,8 +115,7 @@
                         $('#dateProg').val(response.programme.dateProg);
                         $('#heureProg').val(response.programme.heureProg);
                         $('#lieuProg').val(response.programme.lieuProg);
-                        $('#descriptionProg').summernote("code", response.programme
-                            .descriptionProg);
+                        $('#descriptionProg').summernote("code", response.programme.descriptionProg);
                         $('#evn_id').val(response.programme.evn_id);
                         $('#latitude').val(response.programme.latitude);
                         $('#longitude').val(response.programme.longitude);
@@ -177,7 +176,7 @@
                 "autoWidth": false,
                 "responsive": true,
                 "scrollX": true,
-                "scrollY": false,
+                "scrollY": 250,
             });
             $('.dataTables_length').addClass('bs-select');
         });

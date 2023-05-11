@@ -17,58 +17,58 @@
     </section>
 
     <div class="container mb-3 ">
+        <div class="card">
+            <div class="card-header" style="background-color:#0b3544;">
+                <h2 class="card-title text-white fw-bolder">Evenements</h2>
+                <div class="card-tools">
 
-
-    </div>
-    </div>
-
-    <div class="card">
-        <div class="card-header" style="background-color:#0b3544;">
-            <h2 class="card-title text-white fw-bolder">Evenements</h2>
-            <div class="card-tools">
-
+                </div>
             </div>
-        </div>
 
-        <!-- /.card-header -->
-        <div class="card-body">
-            <a id="btnModalFormOrganisteur" href="#modalFormOrganisteur" class="btn text-white mb-4"
-                style="background-color:#0b3544;" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
-                    class="fas fa-plus-circle"></i> <span>Ajouter un Evenement</span></a>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <a id="btnModalFormOrganisteur" href="#modalFormOrganisteur" class="btn text-white mb-4"
+                    style="background-color:#0b3544;" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
+                        class="fas fa-plus-circle"></i> <span>Ajouter un Evenement</span></a>
 
-                <table id="dtBasictable-a" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>Nom Evenement</th>
-                        <th>Nom organisateur</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($Eve as $item)
+                    <table id="dtBasictable-a" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
                         <tr>
-                            <td>{{ $item->nomEvn }}</td>
-                            <td>{{ $item->organisateur->nomOrg }}</td>
-                            <td>
-                                <div class=" d-flex grid ">
-                                    <div class="g-col-4">
-                                        <div class="editbtn" type="button" value="{{$item->id}}" >
-                                             <i class="fa fa-edit" style="color: #0b3544;"></i>
-                                        </div>
-                                    </div>
-                                    <div class="g-col-4 ml-3">
-                                        <div class="deletebtn" type="button" value="{{$item->id}}" >
-                                             <i  class="fa fa-trash" style="color: #ec270d;"></i>
-                                        </div>
-                                    </div>
-                            </td>
+                            <th>Nom Evenement</th>
+                            <th>Nom organisateur</th>
+                            <th>Actions</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($Eve as $item)
+                            <tr>
+                                <td>{{ $item->nomEvn }}</td>
+                                <td>{{ $item->organisateur->nomOrg }}</td>
+                                <td>
+                                    <div class=" d-flex grid ">
+                                        <div class="g-col-4">
+                                            <div class="editbtn" type="button" value="{{$item->id}}" >
+                                                 <i class="fa fa-edit" style="color: #0b3544;"></i>
+                                            </div>
+                                        </div>
+                                        <div class="g-col-4 ml-3">
+                                            <div class="deletebtn" type="button" value="{{$item->id}}" >
+                                                 <i  class="fa fa-trash" style="color: #ec270d;"></i>
+                                            </div>
+                                        </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
         </div>
-        <!-- /.card-body -->
+
     </div>
+    </div>
+
+
      <!-- Modal-->
     @include('Admin.pages.File_Evenement.deleteEvenement')
     @include('Admin.pages.File_Evenement.editEvenement')
@@ -130,7 +130,7 @@
                 "autoWidth": false,
                 "responsive": true,
                 "scrollX": true,
-                "scrollY": false,
+                "scrollY": 250,
             });
             $('.dataTables_length').addClass('bs-select');
         });

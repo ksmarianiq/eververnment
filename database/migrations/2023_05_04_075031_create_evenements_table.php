@@ -13,7 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('evenements', function (Blueprint $table) {
+                  
+            Schema::create('evenements', function (Blueprint $table) {
             $table->id();
             $table->String('nomEvn')->nullable();
             $table->String('datetime')->nullable();
