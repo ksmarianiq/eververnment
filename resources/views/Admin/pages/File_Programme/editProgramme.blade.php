@@ -6,7 +6,7 @@
             @csrf
             @method('PUT')
             <div class="modal-header py-1" style="background-color:#0b3544;">
-                <h4 class="modal-title text-white">Programme</h4>
+                <h4 class="modal-title text-white">Modifier</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
             </div>

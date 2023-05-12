@@ -1,5 +1,6 @@
 @extends('Admin.pages.layout.header')
 @section('Organisateur')
+
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -39,15 +40,15 @@
             <table id="dtBasictable-b" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Libelées </th>
-                        <th>Dates</th>
-                        <th>Heures</th>
-                        <th>Lieux</th>
-                        <th>Evénements</th>
-                        <th>Latitudes</th>
-                        <th>Longitude</th>
-                        <th>QR code</th>
-                        <th>Descriptions</th>
+                        <th scope="col">Libelées </th>
+                        <th scope="col">Dates</th>
+                        <th scope="col">Heures</th>
+                        <th scope="col">Lieux</th>
+                        <th scope="col">Evénements</th>
+                        <th scope="col">Latitudes</th>
+                        <th scope="col">Longitude</th>
+                        <th scope="col">QR code</th>
+                        <th scope="col">Descriptions</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -62,7 +63,7 @@
                             <td>{{ $item->latitude }}</td>
                             <td>{{ $item->longitude }}</td>
                             <td>{{ QrCode::size(80)->generate($item->codeProg) }}</td>
-                            <td class="text-truncate">{{ $item->descriptionProg }}</td>
+                            <td class="d-inline-block text-truncate" style="max-width: 150px;">{{ $item->descriptionProg }}</td>
                             <td>
                                 <div class=" d-flex grid ">
                                     <div class="g-col-4">
@@ -80,7 +81,21 @@
                         </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Libelées </th>
+                        <th>Dates</th>
+                        <th>Heures</th>
+                        <th>Lieux</th>
+                        <th>Evénements</th>
+                        <th>Latitudes</th>
+                        <th>Longitude</th>
+                        <th>QR code</th>
+                        <th>Descriptions</th>
+                        <th>Actions</th>
+                    </tr>
 
+                  </tfoot>
             </table>
         </div>
         <!-- /.card-body -->
@@ -135,7 +150,7 @@
                 result += characters.charAt(Math.floor(Math.random() * charactersLength));
             }
             return result;
-        } "scrollY": 200,
+        }
 
         // Générer une référence aléatoire en combinant des lettres et des chiffres
         function generateProductReference() {
@@ -174,7 +189,7 @@
                 "ordering": true,
                 "info": true,
                 "autoWidth": false,
-                "responsive": true,
+                "responsive": false,
                 "scrollX": true,
                 "scrollY": 250,
             });

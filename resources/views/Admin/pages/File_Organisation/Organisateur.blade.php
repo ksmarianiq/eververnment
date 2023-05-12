@@ -1,5 +1,6 @@
 @extends('Admin.pages.layout.header')
 @section('Organisateur')
+
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -16,11 +17,8 @@
         </div><!-- /.container-fluid -->
     </section>
 
-    <div class="container mb-3 ">
 
 
-    </div>
-    </div>
 
     <div class="card">
         <div class="card-header" style="background-color:#0b3544;">
@@ -36,24 +34,25 @@
                 style="background-color:#0b3544;" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
                     class="fas fa-plus-circle"></i> <span>Ajouter un Oraganisteur</span></a>
 
+           <div class="dataTable-container">
             <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Nom Organisateur</th>
-                        <th>Email</th>
-                        <th>N° Téléphone 1</th>
-                        <th>N° Téléphone 2</th>
-                        <th>N° Whatsapp</th>
-                        <th>Actions</th>
+                        <th scope="col">Nom Organisateur</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">N° Téléphone 1</th>
+                        <th scope="col">N° Téléphone 2</th>
+                        <th scope="col">N° Whatsapp</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($org as $item)
                         <tr>
                             <td>{{ $item->nomOrg }}</td>
+                            <td>{{ $item->emailOrg }}</td>
                             <td>{{ $item->num1Org }}</td>
                             <td>{{ $item->num2Org }} </td>
-                            <td>{{ $item->emailOrg }}</td>
                             <td>{{ $item->whatsappNum }}</td>
                             <td>
                                 <div class=" d-flex grid ">
@@ -71,7 +70,16 @@
                         </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                        <th>Nom Organisateur</th>
+                        <th>Email</th>
+                        <th>N° Téléphone 1</th>
+                        <th>N° Téléphone 2</th>
+                        <th>N° Whatsapp</th>
+                        <th>Actions</th>
+                </tfoot>
             </table>
+           </div>
         </div>
         <!-- /.card-body -->
     </div>
@@ -137,7 +145,7 @@
                 "searching": true,
                 "ordering": true,
                 "info": true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "responsive": true,
                 "scrollX": true,
                 "scrollY": 250,

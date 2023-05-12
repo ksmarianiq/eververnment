@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                         @include('sweetalert::alert')
+                        @include('sweetalert::alert')
                     </ol>
                 </div>
             </div>
@@ -30,37 +30,44 @@
                 <a id="btnModalFormOrganisteur" href="#modalFormOrganisteur" class="btn text-white mb-4"
                     style="background-color:#0b3544;" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
                         class="fas fa-plus-circle"></i> <span>Ajouter un Evenement</span></a>
-
+                <div class="dataTable-container">
                     <table id="dtBasictable-a" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
+                        <thead>
+                            <tr>
+                                <th>Nom Evenement</th>
+                                <th>Nom organisateur</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($Eve as $item)
+                                <tr>
+                                    <td>{{ $item->nomEvn }}</td>
+                                    <td>{{ $item->organisateur->nomOrg }}</td>
+                                    <td>
+                                        <div class=" d-flex grid ">
+                                            <div class="g-col-4">
+                                                <div class="editbtn" type="button" value="{{ $item->id }}">
+                                                    <i class="fa fa-edit" style="color: #0b3544;"></i>
+                                                </div>
+                                            </div>
+                                            <div class="g-col-4 ml-3">
+                                                <div class="deletebtn" type="button" value="{{ $item->id }}">
+                                                    <i class="fa fa-trash" style="color: #ec270d;"></i>
+                                                </div>
+                                            </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
                             <th>Nom Evenement</th>
                             <th>Nom organisateur</th>
                             <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($Eve as $item)
-                            <tr>
-                                <td>{{ $item->nomEvn }}</td>
-                                <td>{{ $item->organisateur->nomOrg }}</td>
-                                <td>
-                                    <div class=" d-flex grid ">
-                                        <div class="g-col-4">
-                                            <div class="editbtn" type="button" value="{{$item->id}}" >
-                                                 <i class="fa fa-edit" style="color: #0b3544;"></i>
-                                            </div>
-                                        </div>
-                                        <div class="g-col-4 ml-3">
-                                            <div class="deletebtn" type="button" value="{{$item->id}}" >
-                                                 <i  class="fa fa-trash" style="color: #ec270d;"></i>
-                                            </div>
-                                        </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </tfoot>
+                    </table>
+                </div>
+
             </div>
             <!-- /.card-body -->
         </div>
@@ -69,41 +76,40 @@
     </div>
 
 
-     <!-- Modal-->
+    <!-- Modal-->
     @include('Admin.pages.File_Evenement.deleteEvenement')
     @include('Admin.pages.File_Evenement.editEvenement')
     @include('Admin.pages.File_Evenement.addEvenement')
 
-     <!-- Modal-->
-
+    <!-- Modal-->
 @endsection
 @section('script')
-<script>
-    $(document).ready(function() {
-        $(document).on('click', '.deletebtn', function() {
-            var iddelte = $(this).attr('value');
-           //alert('ID de l\'organisateur : ' + id);
-           $('#ModalDelete').modal('show');
-           $('#deleteing_id').val(iddelte);
-        });
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '.deletebtn', function() {
+                var iddelte = $(this).attr('value');
+                //alert('ID de l\'organisateur : ' + id);
+                $('#ModalDelete').modal('show');
+                $('#deleteing_id').val(iddelte);
+            });
 
-       $(document).on('click', '.editbtn', function() {
-           var id = $(this).attr('value');
-           //alert('ID de l\'organisateur : ' + id);
-           $('#ModalEdit').modal('show');
-           $.ajax({
-               type: "GET",
-               url: "{{ route('Evenement.edit', ':id') }}".replace(':id', id),
-               success: function(response) {
-                  console.log(response);
-                  $('#nomEvn').val(response.Evenement.nomEvn);
-                  $('#org_id').val(response.Evenement.org_id);
-                  $('#id').val(response.Evenement.id);
-               }
-           })
-       });
-   });
-   </script>
+            $(document).on('click', '.editbtn', function() {
+                var id = $(this).attr('value');
+                //alert('ID de l\'organisateur : ' + id);
+                $('#ModalEdit').modal('show');
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('Evenement.edit', ':id') }}".replace(':id', id),
+                    success: function(response) {
+                        console.log(response);
+                        $('#nomEvn').val(response.Evenement.nomEvn);
+                        $('#org_id').val(response.Evenement.org_id);
+                        $('#id').val(response.Evenement.id);
+                    }
+                })
+            });
+        });
+    </script>
     <script>
         $(function() {
             // Summernote
@@ -127,8 +133,7 @@
                 "searching": true,
                 "ordering": true,
                 "info": true,
-                "autoWidth": false,
-                "responsive": true,
+                "autoWidth": true,
                 "scrollX": true,
                 "scrollY": 250,
             });

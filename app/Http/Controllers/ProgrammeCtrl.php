@@ -20,7 +20,7 @@ class ProgrammeCtrl extends Controller
     {
         $prog=Programme::all();
         $Eve=Evenement::all();
-       
+
         return view('Admin.pages.File_Programme.Programme',compact('prog','Eve'));
     }
 
@@ -54,12 +54,12 @@ class ProgrammeCtrl extends Controller
             'codeProg' =>  'required',
         );
 
+
+
         $error = Validator::make($request->all(), $rules);
 
         if($error->fails())
         {
-
-           Alert::danger('Message','Add error');
             return response()->json(['errors' => $error->errors()->all()]);
         }
 
@@ -70,7 +70,7 @@ class ProgrammeCtrl extends Controller
             'dateProg' =>   $request->dateProg,
             'heureProg' =>   $request->heureProg,
             'lieuProg' =>   $request->lieuProg,
-            'descriptionProg' =>  strip_tags($request->descriptionProg),
+            'descriptionProg' =>strip_tags($request->descriptionProg),
             'evn_id' =>   $request->evn_id,
             'latitude' =>   $request->latitude,
             'longitude' =>   $request->longitude,
