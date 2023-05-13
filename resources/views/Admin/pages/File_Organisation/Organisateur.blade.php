@@ -39,10 +39,10 @@
                 <thead>
                     <tr>
                         <th scope="col">Nom Organisateur</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">N° Téléphone 1</th>
-                        <th scope="col">N° Téléphone 2</th>
-                        <th scope="col">N° Whatsapp</th>
+                        <th scope="col">Emails</th>
+                        <th scope="col">N° Téléphones 1</th>
+                        <th scope="col">N° Téléphones 2</th>
+                        <th scope="col">N° Whatsapps</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>

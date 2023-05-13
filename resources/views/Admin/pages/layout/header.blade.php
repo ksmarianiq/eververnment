@@ -304,9 +304,9 @@
 
 
                                 <li class="nav-item">
-                                    <a href="admin-faq.html" class="nav-link">
+                                    <a href="{{ route('Hotesse.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>FAQ</p>
+                                        <p>Hotesses</p>
                                     </a>
                                 </li>
                             </ul>

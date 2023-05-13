@@ -29,21 +29,25 @@
             <div class="card-body">
                 <a id="btnModalFormOrganisteur" href="#modalFormOrganisteur" class="btn text-white mb-4"
                     style="background-color:#0b3544;" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
-                        class="fas fa-plus-circle"></i> <span>Ajouter un Evenement</span></a>
+                        class="fas fa-plus-circle"></i> <span>Ajouter un Hotesse</span></a>
                 <div class="dataTable-container">
                     <table id="dtBasictable-a" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th>Nom Evenements</th>
-                                <th>Nom organisateurs</th>
+                                <th>Nom  Hotesse</th>
+                                <th>Email </th>
+                                <th>Telephone </th>
+                                <th>Evenement</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($Eve as $item)
+                            @foreach ($Hote as $item)
                                 <tr>
-                                    <td>{{ $item->nomEvn }}</td>
-                                    <td>{{ $item->organisateur->nomOrg }}</td>
+                                    <td>{{ $item->nomHote }}</td>
+                                    <td>{{ $item->emailHote }}</td>
+                                    <td>{{ $item->telephoneHote }}</td>
+                                    <td>{{ $item->evenement->nomEvn }}</td>
                                     <td>
                                         <div class=" d-flex grid ">
                                             <div class="g-col-4">
@@ -61,8 +65,10 @@
                             @endforeach
                         </tbody>
                         <tfoot>
-                            <th>Nom Evenement</th>
-                            <th>Nom organisateur</th>
+                            <th>Nom  Hotesse</th>
+                            <th>Email </th>
+                            <th>Telephone </th>
+                            <th>Evenement</th>
                             <th>Actions</th>
                         </tfoot>
                     </table>
@@ -77,9 +83,9 @@
 
 
     <!-- Modal-->
-    @include('Admin.pages.File_Evenement.deleteEvenement')
-    @include('Admin.pages.File_Evenement.editEvenement')
-    @include('Admin.pages.File_Evenement.addEvenement')
+    @include('Admin.pages.File_Hotesse.deleteHotesse')
+    @include('Admin.pages.File_Hotesse.editHotesse')
+    @include('Admin.pages.File_Hotesse.addHotesse')
 
     <!-- Modal-->
 @endsection
@@ -99,12 +105,14 @@
                 $('#ModalEdit').modal('show');
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('Evenement.edit', ':id') }}".replace(':id', id),
+                    url: "{{ route('Hotesse.edit', ':id') }}".replace(':id', id),
                     success: function(response) {
-                        console.log(response);
-                        $('#nomEvn').val(response.Evenement.nomEvn);
-                        $('#org_id').val(response.Evenement.org_id);
-                        $('#id').val(response.Evenement.id);
+                        //console.log(response.Hotesse);
+                        $('#evn_id').val(response.Hotesse.evn_id);
+                        $('#nomHote').val(response.Hotesse.nomHote);
+                        $('#emailHote').val(response.Hotesse.emailHote);
+                        $('#telephoneHote').val(response.Hotesse.telephoneHote);
+                        $('#id').val(response.Hotesse.id);
                     }
                 })
             });
