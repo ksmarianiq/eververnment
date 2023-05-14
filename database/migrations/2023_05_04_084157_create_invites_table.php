@@ -19,7 +19,7 @@ return new class extends Migration
             $table->String('telephoneInv')->nullable();
             $table->String('emailInv')->nullable();
             $table->String('nbreInv')->nullable();
-            $table->String('codeInv')->nullable();
+            $table->String('codeInv')->unique()->nullable();
             $table->String('qrCodeInv')->nullable();
             $table->bigInteger('evn_id')->unsigned();
             $table->foreign('evn_id')->references('id')->on('evenements')->nullable();

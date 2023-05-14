@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-                  
+
             Schema::create('evenements', function (Blueprint $table) {
             $table->id();
             $table->String('nomEvn')->nullable();
             $table->String('datetime')->nullable();
             $table->String('lieu')->nullable();
-            $table->String('codeEvn')->nullable();
+            $table->String('codeEvn')->unique()->nullable();
             $table->String('qrCodeEvn')->nullable();
             $table->bigInteger('org_id')->unsigned()->nullable();
             $table->foreign('org_id')->references('id')->on('organisateurs');
