@@ -1,5 +1,5 @@
 @extends('Admin.pages.layout.header')
-@section('Programme')
+@section('Invite')
 
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -17,15 +17,12 @@
         </div><!-- /.container-fluid -->
     </section>
 
-    <div class="container mb-3 ">
 
 
-    </div>
-    </div>
 
     <div class="card">
         <div class="card-header" style="background-color:#0b3544;">
-            <h2 class="card-title text-white fw-bolder">Programmes</h2>
+            <h2 class="card-title text-white fw-bolder">Invités</h2>
             <div class="card-tools">
 
             </div>
@@ -35,35 +32,32 @@
         <div class="card-body">
             <a id="btnModalFormOrganisteur" href="#modalFormOrganisteur" class="btn text-white mb-4"
                 style="background-color:#0b3544;" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
-                    class="fas fa-plus-circle"></i> <span>Ajouter un Programme</span></a>
+                    class="fas fa-plus-circle"></i> <span>Ajouter un Invité</span></a>
 
-            <table id="dtBasictable-b" class="table table-striped table-bordered  text-truncate" cellspacing="0" width="100%">
+           <div class="dataTable-container">
+            <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th scope="col">Libelées </th>
-                        <th scope="col">Dates</th>
-                        <th scope="col">Heures</th>
-                        <th scope="col">Lieux</th>
-                        <th scope="col">Evénements</th>
-                        <th scope="col">Latitudes</th>
-                        <th scope="col">Longitude</th>
-                        <th scope="col">QR code</th>
-                        <th scope="col">Descriptions</th>
-                        <th>Actions</th>
+                        <th scope="col">Nom Invités</th>
+                        <th scope="col">Emails</th>
+                        <th scope="col">N° Tel</th>
+                        <th scope="col">Nombre d'Invités</th>
+                        <th scope="col">QR codes</th>
+                        <th scope="col">Nom Tables</th>
+                        <th scope="col">Evenements</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($prog as $item)
-
-                            <td>{{ $item->libProg }}</td>
-                            <td>{{ $item->dateProg }}</td>
-                            <td>{{ $item->heureProg }} </td>
-                            <td>{{ $item->lieuProg }}</td>
+                    @foreach ($Invite as $item)
+                        <tr>
+                            <td>{{ $item->nomInv }}</td>
+                            <td>{{ $item->emailInv }}</td>
+                            <td>{{ $item->telephoneInv }}</td>
+                            <td>{{ $item->nbreInv }} </td>
+                            <td>{{ QrCode::size(80)->generate($item->codeInv) }}</td>
+                            <td>{{ $item->tables->nomTableInv  }}</td>
                             <td>{{ $item->evenement->nomEvn }}</td>
-                            <td>{{ $item->latitude }}</td>
-                            <td>{{ $item->longitude }}</td>
-                            <td>{{ QrCode::size(80)->generate($item->codeProg) }}</td>
-                            <td >{{ $item->descriptionProg }}</td>
                             <td>
                                 <div class=" d-flex grid ">
                                     <div class="g-col-4">
@@ -76,20 +70,20 @@
                                             <i class="fa fa-trash" style="color: #ec270d;"></i>
                                         </div>
                                     </div>
-
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
 
             </table>
+           </div>
         </div>
         <!-- /.card-body -->
     </div>
     <!-- Modal-->
-    @include('Admin.pages.File_Programme.deleteProgramme')
-    @include('Admin.pages.File_Programme.editProgramme')
-    @include('Admin.pages.File_Programme.addProgramme')
+    @include('Admin.pages.File_Invite.deleteInvite')
+    @include('Admin.pages.File_Invite.editInvite')
+    @include('Admin.pages.File_Invite.addInvite')
 
     <!-- Modal-->
 @endsection
@@ -98,35 +92,66 @@
         $(document).ready(function() {
             $(document).on('click', '.deletebtn', function() {
                 var iddelte = $(this).attr('value');
-                //alert('ID de l\'organisateur : ' + id);
+                //alert('ID de l\'Invite : ' + id);
                 $('#ModalDelete').modal('show');
                 $('#deleteing_id').val(iddelte);
             });
 
             $(document).on('click', '.editbtn', function() {
                 var id = $(this).attr('value');
-                //alert('ID de l\'organisateur : ' + id);
+                //alert('ID de l\'Invite : ' + id);
                 $('#ModalEdit').modal('show');
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('programme.edit', ':id') }}".replace(':id', id),
+                    url: "{{ route('Invite.edit', ':id') }}".replace(':id', id),
                     success: function(response) {
-                        // console.log(response.programme.id);
-                        $('#libProg').val(response.programme.libProg);
-                        $('#dateProg').val(response.programme.dateProg);
-                        $('#heureProg').val(response.programme.heureProg);
-                        $('#lieuProg').val(response.programme.lieuProg);
-                        $('#descriptionProg').summernote("code", response.programme.descriptionProg);
-                        $('#evn_id').val(response.programme.evn_id);
-                        $('#latitude').val(response.programme.latitude);
-                        $('#longitude').val(response.programme.longitude);
-                        $('#id').val(response.programme.id);
+                        // console.log(response.Invite.id);
+                        $('#nomInv').val(response.Invite.nomInv);
+                        $('#telephoneInv').val(response.Invite.telephoneInv);
+                        $('#emailInv').val(response.Invite.emailInv);
+                        $('#nbreInv').val(response.Invite.nbreInv);
+                        $('#ivn_table_id').val(response.Invite.ivn_table_id);
+                        $('#evn_id').val(response.Invite.evn_id);
+                        $('#codeInv').val(response.Invite.codeInv);
+                        $('#id').val(response.Invite.id);
                     }
                 })
             });
         });
     </script>
     <script>
+        $(function() {
+            // Summernote
+            $('#summernote').summernote({
+                height: 100,
+                placeholder: 'Entrer un texte',
+            });
+
+            // CodeMirror
+            CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+                mode: "htmlmixed",
+                theme: "monokai"
+            });
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#dtBasicExample').DataTable({
+                "processing": true,
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": false,
+                "scrollX": true,
+                "scrollY": 200,
+            });
+            $('.dataTables_length').addClass('bs-select');
+        });
+    </script>
+      <script>
         // Générer une chaîne de caractères aléatoire de longueur donnée
         function generateRandomString(length) {
             var result = "";
@@ -149,37 +174,5 @@
 
         // Générer une référence aléatoire et l'afficher dans le champ de saisie
         input.value = generateProductReference();
-    </script>
-    <script>
-        $(function() {
-            // Summernote
-            $('#summernote').summernote({
-                height: 100,
-                placeholder: 'Entrer un texte',
-            });
-
-            // CodeMirror
-            CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-                mode: "htmlmixed",
-                theme: "monokai"
-            });
-        })
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#dtBasictable-b').DataTable({
-                "processing": true,
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": false,
-                "scrollX": true,
-                "scrollY": 200,
-            });
-            $('.dataTables_length').addClass('bs-select');
-        });
     </script>
 @endsection

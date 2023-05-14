@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evenement;
+use App\Models\Invite;
 use App\Models\IvnTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class InfoTablesCtrl extends Controller
+class InviteCtrl extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +19,9 @@ class InfoTablesCtrl extends Controller
     public function index()
     {
         $Tables=IvnTables::all();
+        $Invite=Invite::all();
         $Eve=Evenement::all();
-        return view('Admin.pages.File_Tables.Tables',compact('Tables','Eve'));
+        return view('Admin.pages.File_Invite.Invite',compact('Tables','Eve','Invite'));
     }
 
     /**
@@ -40,17 +42,21 @@ class InfoTablesCtrl extends Controller
      */
     public function store(Request $request)
     {
+
         $rules = array(
+            'nomInv' =>  'required',
+            'telephoneInv' =>  'required',
+            'emailInv' =>  'required',
+            'nbreInv' =>  'required',
+            'ivn_table_id' =>  'required',
             'evn_id' =>  'required',
-            'nomTableInv' =>  'required',
-            'nbrePlaceInv' =>  'required',
-            'descriptionTableInv' =>  'required',
+            'codeInv' =>  'required',
         );
 
 
 
-        $error = Validator::make($request->all(), $rules);
 
+        $error = Validator::make($request->all(), $rules);
         if($error->fails())
         {
             return response()->json(['errors' => $error->errors()->all()]);
@@ -59,16 +65,18 @@ class InfoTablesCtrl extends Controller
 
 
         $form_data = array(
-            'evn_id' =>   $request->evn_id,
-            'nomTableInv' =>$request->nomTableInv,
-            'nbrePlaceInv' =>$request->nbrePlaceInv,
-            'descriptionTableInv' =>strip_tags($request->descriptionTableInv),
+            'nomInv' =>   $request->nomInv,
+            'telephoneInv' =>$request->telephoneInv,
+            'emailInv' =>$request->emailInv,
+            'nbreInv' =>$request->nbreInv,
+            'ivn_table_id' =>$request->ivn_table_id,
+            'evn_id' =>$request->evn_id,
+            'codeInv' =>$request->codeInv,
         );
 
-        
-        IvnTables::create($form_data);
+        Invite::create($form_data);
         Alert::success('Message','Add successfully');
-        return redirect()->route('Tables.index');
+        return redirect()->route('Invite.index');
     }
 
     /**
@@ -90,12 +98,11 @@ class InfoTablesCtrl extends Controller
      */
     public function edit($id)
     {
-          //cette route edit me permet de recuperer id par api en json lorqu'on clique sur le button edit
-      $Tables=IvnTables::find($id);
-      return response()->json([
-         'status'=>200,
-         'Tables'=>$Tables,
-      ]);
+        $Invite=Invite::find($id);
+        return response()->json([
+           'status'=>200,
+           'Invite'=>$Invite,
+        ]);
     }
 
     /**
@@ -108,15 +115,18 @@ class InfoTablesCtrl extends Controller
     public function update(Request $request)
     {
       //la route update a été détacher de la route ressource  (faite un php artisan route:list)
-      $Tables_id= $request->input('id');
-      $Tables=IvnTables::find($Tables_id);
-      $Tables->nomTableInv= $request->input('nomTableInv');
-      $Tables->nbrePlaceInv= $request->input('nbrePlaceInv');
-      $Tables->descriptionTableInv= strip_tags($request->input('descriptionTableInv'));
-      $Tables->evn_id= $request->input('evn_id');
-      $Tables->update();
+      $Invite_id= $request->input('id');
+      $Invite=Invite::find($Invite_id);
+      $Invite->nomInv= $request->input('nomInv');
+      $Invite->telephoneInv= $request->input('telephoneInv');
+      $Invite->emailInv= $request->input('emailInv');
+      $Invite->nbreInv= $request->input('nbreInv');
+      $Invite->ivn_table_id= $request->input('ivn_table_id');
+      $Invite->evn_id= $request->input('evn_id');
+      $Invite->codeInv= $request->input('codeInv');
+      $Invite->update();
       Alert::success('Message','Update successfully');
-      return redirect()->route('Tables.index');
+      return redirect()->route('Invite.index');
     }
 
     /**
@@ -127,10 +137,10 @@ class InfoTablesCtrl extends Controller
      */
     public function destroy(Request $request)
     {
-        $data= $request->input('deleteTables');
-        $data=IvnTables::find($data);
+        $data= $request->input('deleteInv');
+        $data=Invite::find($data);
         $data->delete();
         Alert::success('Message','Delete successfully');
-        return redirect()->route('Tables.index');
+        return redirect()->route('Invite.index');
     }
 }

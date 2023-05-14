@@ -1,5 +1,5 @@
 @extends('Admin.pages.layout.header')
-@section('Evenement')
+@section('Hotesse')
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">

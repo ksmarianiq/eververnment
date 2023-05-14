@@ -38,11 +38,11 @@
             <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th scope="col">Nom Org</th>
+                        <th scope="col">Nom Organisateurs</th>
                         <th scope="col">Emails</th>
-                        <th scope="col">N° Tél</th>
-                        <th scope="col">N° Tél</th>
-                        <th scope="col">N° Wha</th>
+                        <th scope="col">N° Tel 1</th>
+                        <th scope="col">N° Tel 2</th>
+                        <th scope="col">N° Whatsapps</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>

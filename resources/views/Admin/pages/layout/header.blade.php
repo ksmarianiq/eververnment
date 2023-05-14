@@ -313,7 +313,13 @@
                                 <li class="nav-item">
                                     <a href="{{ route('Tables.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Tables</p>
+                                        <p>Tables Invités</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('Invite.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Invités</p>
                                     </a>
                                 </li>
                             </ul>
@@ -388,10 +394,11 @@
 
                     @yield('Dashboard')
                     @yield('Organisateur')
+                    @yield('Programme')
+                    @yield('Tables')
+                    @yield('Hotesse')
                     @yield('Evenement')
-
-
-
+                    @yield('Invite')
                 </div><!-- /.container-fluid -->
 
             </section>
