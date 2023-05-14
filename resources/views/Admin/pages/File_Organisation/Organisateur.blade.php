@@ -38,11 +38,11 @@
             <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th scope="col">Nom Organisateur</th>
+                        <th scope="col">Nom Org</th>
                         <th scope="col">Emails</th>
-                        <th scope="col">N° Téléphones 1</th>
-                        <th scope="col">N° Téléphones 2</th>
-                        <th scope="col">N° Whatsapps</th>
+                        <th scope="col">N° Tél</th>
+                        <th scope="col">N° Tél</th>
+                        <th scope="col">N° Wha</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -70,14 +70,7 @@
                         </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
-                        <th>Nom Organisateur</th>
-                        <th>Email</th>
-                        <th>N° Téléphone 1</th>
-                        <th>N° Téléphone 2</th>
-                        <th>N° Whatsapp</th>
-                        <th>Actions</th>
-                </tfoot>
+
             </table>
            </div>
         </div>
@@ -145,10 +138,10 @@
                 "searching": true,
                 "ordering": true,
                 "info": true,
-                "autoWidth": true,
-                "responsive": true,
+                "autoWidth": false,
+                "responsive": false,
                 "scrollX": true,
-                "scrollY": 250,
+                "scrollY": 200,
             });
             $('.dataTables_length').addClass('bs-select');
         });

@@ -9,17 +9,17 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        @include('sweetalert::alert')
+
                     </ol>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
     </section>
 
-    <div class="container mb-3 ">
+    <div class=" w-100 d-lg-block">
         <div class="card">
             <div class="card-header" style="background-color:#0b3544;">
-                <h2 class="card-title text-white fw-bolder">Evenements</h2>
+                <h2 class="card-title text-white fw-bolder">Hotesse</h2>
                 <div class="card-tools">
 
                 </div>
@@ -64,13 +64,7 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                        <tfoot>
-                            <th>Nom  Hotesse</th>
-                            <th>Email </th>
-                            <th>Telephone </th>
-                            <th>Evenement</th>
-                            <th>Actions</th>
-                        </tfoot>
+
                     </table>
                 </div>
 
@@ -88,6 +82,7 @@
     @include('Admin.pages.File_Hotesse.addHotesse')
 
     <!-- Modal-->
+    @include('sweetalert::alert')
 @endsection
 @section('script')
     <script>
@@ -143,7 +138,7 @@
                 "info": true,
                 "autoWidth": true,
                 "scrollX": true,
-                "scrollY": 250,
+                "scrollY": 200,
             });
             $('.dataTables_length').addClass('bs-select');
         });

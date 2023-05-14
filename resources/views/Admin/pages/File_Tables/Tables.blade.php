@@ -19,7 +19,7 @@
     <div class="container mb-3 ">
         <div class="card">
             <div class="card-header" style="background-color:#0b3544;">
-                <h2 class="card-title text-white fw-bolder">Evenements</h2>
+                <h2 class="card-title text-white fw-bolder">Tables</h2>
                 <div class="card-tools">
 
                 </div>
@@ -29,21 +29,25 @@
             <div class="card-body">
                 <a id="btnModalFormOrganisteur" href="#modalFormOrganisteur" class="btn text-white mb-4"
                     style="background-color:#0b3544;" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
-                        class="fas fa-plus-circle"></i> <span>Ajouter un Evenement</span></a>
+                        class="fas fa-plus-circle"></i> <span>Ajouter un Tables</span></a>
                 <div class="dataTable-container">
                     <table id="dtBasictable-a" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th>Nom Evenements</th>
-                                <th>Nom organisateurs</th>
+                                <th>Nom Tables</th>
+                                <th>Nombres Places </th>
+                                <th>Evenements</th>
+                                <th>Descriptions</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($Eve as $item)
+                            @foreach ($Tables as $item)
                                 <tr>
-                                    <td>{{ $item->nomEvn }}</td>
-                                    <td>{{ $item->organisateur->nomOrg }}</td>
+                                    <td>{{ $item->nomTableInv }}</td>
+                                    <td>{{ $item->nbrePlaceInv }}</td>
+                                    <td>{{ $item->evenement->nomEvn }}</td>
+                                    <td>{{ $item->descriptionTableInv }}</td>
                                     <td>
                                         <div class=" d-flex grid ">
                                             <div class="g-col-4">
@@ -72,9 +76,9 @@
 
 
     <!-- Modal-->
-    @include('Admin.pages.File_Evenement.deleteEvenement')
-    @include('Admin.pages.File_Evenement.editEvenement')
-    @include('Admin.pages.File_Evenement.addEvenement')
+    @include('Admin.pages.File_Tables.deleteTables')
+    @include('Admin.pages.File_Tables.editTables')
+    @include('Admin.pages.File_Tables.addTables')
 
     <!-- Modal-->
 @endsection
@@ -94,12 +98,14 @@
                 $('#ModalEdit').modal('show');
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('Evenement.edit', ':id') }}".replace(':id', id),
+                    url: "{{ route('Tables.edit', ':id') }}".replace(':id', id),
                     success: function(response) {
-                        console.log(response);
-                        $('#nomEvn').val(response.Evenement.nomEvn);
-                        $('#org_id').val(response.Evenement.org_id);
-                        $('#id').val(response.Evenement.id);
+                        //console.log(response.Hotesse);
+                        $('#evn_id').val(response.Tables.evn_id);
+                        $('#nomTableInv').val(response.Tables.nomTableInv);
+                        $('#nbrePlaceInv').val(response.Tables.nbrePlaceInv);
+                        $('#descriptionTableInv').summernote("code", response.Tables.descriptionTableInv);
+                        $('#id').val(response.Tables.id);
                     }
                 })
             });
@@ -130,7 +136,7 @@
                 "info": true,
                 "autoWidth": true,
                 "scrollX": true,
-                "scrollY": 200,
+                "scrollY": 250,
             });
             $('.dataTables_length').addClass('bs-select');
         });

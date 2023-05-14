@@ -37,7 +37,7 @@
                 style="background-color:#0b3544;" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
                     class="fas fa-plus-circle"></i> <span>Ajouter un Programme</span></a>
 
-            <table id="dtBasictable-b" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <table id="dtBasictable-b" class="table table-striped table-bordered  text-truncate" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th scope="col">Libelées </th>
@@ -54,7 +54,7 @@
                 </thead>
                 <tbody>
                     @foreach ($prog as $item)
-                        <tr>
+
                             <td>{{ $item->libProg }}</td>
                             <td>{{ $item->dateProg }}</td>
                             <td>{{ $item->heureProg }} </td>
@@ -63,7 +63,7 @@
                             <td>{{ $item->latitude }}</td>
                             <td>{{ $item->longitude }}</td>
                             <td>{{ QrCode::size(80)->generate($item->codeProg) }}</td>
-                            <td class="d-inline-block text-truncate" style="max-width: 150px;">{{ $item->descriptionProg }}</td>
+                            <td >{{ $item->descriptionProg }}</td>
                             <td>
                                 <div class=" d-flex grid ">
                                     <div class="g-col-4">
@@ -81,21 +81,7 @@
                         </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Libelées </th>
-                        <th>Dates</th>
-                        <th>Heures</th>
-                        <th>Lieux</th>
-                        <th>Evénements</th>
-                        <th>Latitudes</th>
-                        <th>Longitude</th>
-                        <th>QR code</th>
-                        <th>Descriptions</th>
-                        <th>Actions</th>
-                    </tr>
 
-                  </tfoot>
             </table>
         </div>
         <!-- /.card-body -->
@@ -191,7 +177,7 @@
                 "autoWidth": false,
                 "responsive": false,
                 "scrollX": true,
-                "scrollY": 250,
+                "scrollY": 200,
             });
             $('.dataTables_length').addClass('bs-select');
         });

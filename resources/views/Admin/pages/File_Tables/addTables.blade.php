@@ -1,11 +1,11 @@
 <div class="modal fade" id="modalFormOrganisteur">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content ">
-            <form id="formOrg" action="{{ route('Hotesse.store') }}" data-toggle="validator" role="form"
+            <form id="formOrg" action="{{ route('Tables.store') }}" data-toggle="validator" role="form"
                 method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header py-1" style="background-color:#0b3544;">
-                    <h4 class="modal-title text-white">Hotesse</h4>
+                    <h4 class="modal-title text-white">Tables</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
                 </div>
@@ -14,16 +14,17 @@
                         <div class="row ">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="control-label" for="nomHote">Nom Hotesse</label>
-                                    <input type="text" id="nomHote" class="form-control" value=""
-                                        name="nomHote" style=" height:43px;" required />
+                                    <label class="control-label" for="nomTableInv">Nom Tables</label>
+                                    <input type="text" id="nomTableInv" class="form-control" value=""
+                                        name="nomTableInv" style=" height:43px;" required />
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label" for="evn_id">Evenement</label>
-                                    <select class="form-control" id="" value="" name="evn_id"
+                                    <select class="form-control" id="evn_id" value="" name="evn_id"
                                         style=" height:43px;" required>
+                                        <option selected>Choisir un nom</option>
                                         @foreach ($Eve as $item)
                                             <option value="{{ $item->id }}">{{ $item->nomEvn }}</option>
                                         @endforeach
@@ -31,18 +32,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row ">
-                            <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm">
                                 <div class="form-group">
-                                    <label class="control-label" for="emailHote">Email </label>
-                                    <input type="email" class="form-control" value="" id="emailHote" name="emailHote" style=" height:43px;" required />
+                                    <label class="control-label" for="nbrePlaceInv">Nombre Place </label>
+                                    <input type="text" class="form-control" value="" id="nbrePlaceInv" name="nbrePlaceInv"
+                                        style=" height:43px;" required />
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
                                 <div class="form-group">
-                                    <label class="control-label" for="telephoneHote">Telephone</label>
-                                    <input type="text" class="form-control" value="" id="telephoneHote"
-                                        name="telephoneHote" style=" height:43px;" required />
+                                    <label class="control-label" for="descriptionTableInv">Description</label>
+                                    <textarea id="summernote" name="descriptionTableInv" ></textarea>
                                 </div>
                             </div>
                         </div>

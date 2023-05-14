@@ -4,6 +4,7 @@ use App\Http\Controllers\EvenementCtrl;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HotessCtrl;
+use App\Http\Controllers\InfoTablesCtrl;
 use App\Http\Controllers\OrganisateurCtrl;
 use App\Http\Controllers\ProgrammeCtrl;
 use App\Models\Evenement;
@@ -59,5 +60,11 @@ Route::middleware(['auth', 'user-role:admin'])->group(function () {
     Route::resource('/Hotesse', HotessCtrl::class);
     Route::put("/updateHot", [HotessCtrl::class, 'update'])->name('update-Hotesse');
     Route::delete("/deleteHot", [HotessCtrl::class, 'destroy'])->name('delete-Hotesse');
+
+
+    //Tables
+    Route::resource('/Tables', InfoTablesCtrl::class);
+    Route::put("/updateTa", [InfoTablesCtrl::class, 'update'])->name('update-Tables');
+    Route::delete("/deleteTa", [InfoTablesCtrl::class, 'destroy'])->name('delete-Tables');
 
 });
