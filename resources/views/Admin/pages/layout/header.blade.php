@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Gestionnaire d'Evénement</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -322,6 +323,12 @@
                                         <p>Invités</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('Information.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Autres Informations</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <!-- -->
@@ -399,6 +406,7 @@
                     @yield('Hotesse')
                     @yield('Evenement')
                     @yield('Invite')
+                    @yield('Information')
                 </div><!-- /.container-fluid -->
 
             </section>

@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('InformationSups', function (Blueprint $table) {
+        Schema::create('information_sups', function (Blueprint $table) {
             $table->id();
             $table->String('titre')->nullable();
             $table->String('infCheckBox')->nullable();
-            $table->String('codeAutre')->unique()->nullable();
-            $table->String('qrCodeAutre')->nullable();
+            $table->String('codeInf')->unique()->nullable();
+            $table->String('qrCodeInf')->nullable();
             $table->bigInteger('evn_id')->unsigned()->nullable();
             $table->foreign('evn_id')->references('id')->on('evenements');
             $table->timestamps();
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('InformationSups');
+        Schema::dropIfExists('information_sups');
     }
 };

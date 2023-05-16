@@ -8,6 +8,7 @@ use App\Http\Controllers\InfoTablesCtrl;
 use App\Http\Controllers\InviteCtrl;
 use App\Http\Controllers\OrganisateurCtrl;
 use App\Http\Controllers\ProgrammeCtrl;
+use App\Http\Controllers\InformationCtrl;
 use App\Models\Evenement;
 use Illuminate\Support\Facades\Auth;
 
@@ -72,4 +73,11 @@ Route::middleware(['auth', 'user-role:editor'])->group(function () {
     Route::resource('/Invite', InviteCtrl::class);
     Route::put("/updateIn", [InviteCtrl::class, 'update'])->name('update-Invite');
     Route::delete("/deleteIn", [InviteCtrl::class, 'destroy'])->name('delete-Invite');
+
+     //INFORMATION SUPPLEMENTAIRE
+     Route::resource('/Information', InformationCtrl::class);
+     Route::put("/updateInfo", [InformationCtrl::class, 'update'])->name('update-Information');
+     Route::post('/test/check', 'InformationCtrl@check')->name('test.check');
+     Route::delete("/deleteInfo", [InformationCtrl::class, 'destroy'])->name('delete-Information');
 });
+
