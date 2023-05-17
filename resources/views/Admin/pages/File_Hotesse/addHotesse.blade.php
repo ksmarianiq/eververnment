@@ -24,6 +24,7 @@
                                     <label class="control-label" for="evn_id">Evenement</label>
                                     <select class="form-control" id="" value="" name="evn_id"
                                         style=" height:43px;" required>
+                                        <option selected>Choisir un nom</option>
                                         @foreach ($Eve as $item)
                                             <option value="{{ $item->id }}">{{ $item->nomEvn }}</option>
                                         @endforeach
