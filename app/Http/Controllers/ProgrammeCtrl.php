@@ -18,10 +18,10 @@ class ProgrammeCtrl extends Controller
      */
     public function index()
     {
-        $prog=Programme::all();
-        $Eve=Evenement::all();
+        $prog = Programme::all();
+        $Eve = Evenement::all();
 
-        return view('Admin.pages.File_Programme.Programme',compact('prog','Eve'));
+        return view('Admin.pages.File_Programme.Programme', compact('prog', 'Eve'));
     }
 
     /**
@@ -58,29 +58,31 @@ class ProgrammeCtrl extends Controller
 
         $error = Validator::make($request->all(), $rules);
 
-        if($error->fails())
-        {
-            Alert::error('Message','Add error');
+        if ($error->fails()) {
+            Alert::error('Message', 'Add error');
             return redirect()->back()->withErrors($error)->withInput();
         }
 
+        try {
+            $form_data = array(
+                'libProg' =>   $request->libProg,
+                'dateProg' =>   $request->dateProg,
+                'heureProg' =>   $request->heureProg,
+                'lieuProg' =>   $request->lieuProg,
+                'descriptionProg' => strip_tags($request->descriptionProg),
+                'evn_id' =>   $request->evn_id,
+                'latitude' =>   $request->latitude,
+                'longitude' =>   $request->longitude,
+                'codeProg' =>   $request->codeProg,
+            );
 
-
-        $form_data = array(
-            'libProg' =>   $request->libProg,
-            'dateProg' =>   $request->dateProg,
-            'heureProg' =>   $request->heureProg,
-            'lieuProg' =>   $request->lieuProg,
-            'descriptionProg' =>strip_tags($request->descriptionProg),
-            'evn_id' =>   $request->evn_id,
-            'latitude' =>   $request->latitude,
-            'longitude' =>   $request->longitude,
-            'codeProg' =>   $request->codeProg,
-        );
-
-        Programme::create($form_data);
-        Alert::success('Message','Add successfully');
-        return redirect()->route('programme.index');
+            Programme::create($form_data);
+            Alert::success('Message', 'Add successfully');
+            return redirect()->route('programme.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -102,12 +104,12 @@ class ProgrammeCtrl extends Controller
      */
     public function edit($id)
     {
-       //cette route edit me permet de recuperer id par api en json lorqu'on clique sur le button edit
-      $prog=Programme::find($id);
-      return response()->json([
-         'status'=>200,
-         'programme'=>$prog,
-      ]);
+        //cette route edit me permet de recuperer id par api en json lorqu'on clique sur le button edit
+        $prog = Programme::find($id);
+        return response()->json([
+            'status' => 200,
+            'programme' => $prog,
+        ]);
     }
 
     /**
@@ -119,20 +121,26 @@ class ProgrammeCtrl extends Controller
      */
     public function update(Request $request)
     {
-       //la route update a été détacher de la route ressource  (faite un php artisan route:list)
-       $prog_id= $request->input('id');
-       $prog=Programme::find($prog_id);
-       $prog->libProg= $request->input('libProg');
-       $prog->dateProg= $request->input('dateProg');
-       $prog->heureProg= $request->input('heureProg');
-       $prog->lieuProg= $request->input('lieuProg');
-       $prog->descriptionProg=strip_tags($request->input('descriptionProg'));
-       $prog->evn_id= $request->input('evn_id');
-       $prog->latitude= $request->input('latitude');
-       $prog->longitude= $request->input('longitude');
-       $prog->update();
-       Alert::success('Message','Update successfully');
-       return redirect()->route('programme.index');
+        //la route update a été détacher de la route ressource  (faite un php artisan route:list)
+        $prog_id = $request->input('id');
+        $prog = Programme::find($prog_id);
+
+        try {
+            $prog->libProg = $request->input('libProg');
+            $prog->dateProg = $request->input('dateProg');
+            $prog->heureProg = $request->input('heureProg');
+            $prog->lieuProg = $request->input('lieuProg');
+            $prog->descriptionProg = strip_tags($request->input('descriptionProg'));
+            $prog->evn_id = $request->input('evn_id');
+            $prog->latitude = $request->input('latitude');
+            $prog->longitude = $request->input('longitude');
+            $prog->update();
+            Alert::success('Message', 'Update successfully');
+            return redirect()->route('programme.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -170,5 +178,4 @@ class ProgrammeCtrl extends Controller
         preg_match_all("/`(.+?)`/", $errorMessage, $matches);
         return $matches[1];
     }
-    }
-
+}

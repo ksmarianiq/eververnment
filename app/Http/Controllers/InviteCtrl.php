@@ -63,20 +63,24 @@ class InviteCtrl extends Controller
         }
 
 
+        try {
+            $form_data = array(
+                'nomInv' =>   $request->nomInv,
+                'telephoneInv' => $request->telephoneInv,
+                'emailInv' => $request->emailInv,
+                'nbreInv' => $request->nbreInv,
+                'ivn_table_id' => $request->ivn_table_id,
+                'evn_id' => $request->evn_id,
+                'codeInv' => $request->codeInv,
+            );
 
-        $form_data = array(
-            'nomInv' =>   $request->nomInv,
-            'telephoneInv' => $request->telephoneInv,
-            'emailInv' => $request->emailInv,
-            'nbreInv' => $request->nbreInv,
-            'ivn_table_id' => $request->ivn_table_id,
-            'evn_id' => $request->evn_id,
-            'codeInv' => $request->codeInv,
-        );
-
-        Invite::create($form_data);
-        Alert::success('Message', 'Add successfully');
-        return redirect()->route('Invite.index');
+            Invite::create($form_data);
+            Alert::success('Message', 'Add successfully');
+            return redirect()->route('Invite.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -117,16 +121,21 @@ class InviteCtrl extends Controller
         //la route update a été détacher de la route ressource  (faite un php artisan route:list)
         $Invite_id = $request->input('id');
         $Invite = Invite::find($Invite_id);
-        $Invite->nomInv = $request->input('nomInv');
-        $Invite->telephoneInv = $request->input('telephoneInv');
-        $Invite->emailInv = $request->input('emailInv');
-        $Invite->nbreInv = $request->input('nbreInv');
-        $Invite->ivn_table_id = $request->input('ivn_table_id');
-        $Invite->evn_id = $request->input('evn_id');
-        $Invite->codeInv = $request->input('codeInv');
-        $Invite->update();
-        Alert::success('Message', 'Update successfully');
-        return redirect()->route('Invite.index');
+        try {
+            $Invite->nomInv = $request->input('nomInv');
+            $Invite->telephoneInv = $request->input('telephoneInv');
+            $Invite->emailInv = $request->input('emailInv');
+            $Invite->nbreInv = $request->input('nbreInv');
+            $Invite->ivn_table_id = $request->input('ivn_table_id');
+            $Invite->evn_id = $request->input('evn_id');
+            $Invite->codeInv = $request->input('codeInv');
+            $Invite->update();
+            Alert::success('Message', 'Update successfully');
+            return redirect()->route('Invite.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**

@@ -17,9 +17,9 @@ class InfoTablesCtrl extends Controller
      */
     public function index()
     {
-        $Tables=IvnTables::all();
-        $Eve=Evenement::all();
-        return view('Admin.pages.File_Tables.Tables',compact('Tables','Eve'));
+        $Tables = IvnTables::all();
+        $Eve = Evenement::all();
+        return view('Admin.pages.File_Tables.Tables', compact('Tables', 'Eve'));
     }
 
     /**
@@ -51,25 +51,27 @@ class InfoTablesCtrl extends Controller
 
         $error = Validator::make($request->all(), $rules);
 
-        if($error->fails())
-        {
-            Alert::error('Message','Add error');
+        if ($error->fails()) {
+            Alert::error('Message', 'Add error');
             return redirect()->back()->withErrors($error)->withInput();
         }
 
+        try {
+            $form_data = array(
+                'evn_id' =>   $request->evn_id,
+                'nomTableInv' => $request->nomTableInv,
+                'nbrePlaceInv' => $request->nbrePlaceInv,
+                'descriptionTableInv' => strip_tags($request->descriptionTableInv),
+            );
 
 
-        $form_data = array(
-            'evn_id' =>   $request->evn_id,
-            'nomTableInv' =>$request->nomTableInv,
-            'nbrePlaceInv' =>$request->nbrePlaceInv,
-            'descriptionTableInv' =>strip_tags($request->descriptionTableInv),
-        );
-
-
-        IvnTables::create($form_data);
-        Alert::success('Message','Add successfully');
-        return redirect()->route('Tables.index');
+            IvnTables::create($form_data);
+            Alert::success('Message', 'Add successfully');
+            return redirect()->route('Tables.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -91,12 +93,12 @@ class InfoTablesCtrl extends Controller
      */
     public function edit($id)
     {
-          //cette route edit me permet de recuperer id par api en json lorqu'on clique sur le button edit
-      $Tables=IvnTables::find($id);
-      return response()->json([
-         'status'=>200,
-         'Tables'=>$Tables,
-      ]);
+        //cette route edit me permet de recuperer id par api en json lorqu'on clique sur le button edit
+        $Tables = IvnTables::find($id);
+        return response()->json([
+            'status' => 200,
+            'Tables' => $Tables,
+        ]);
     }
 
     /**
@@ -108,16 +110,21 @@ class InfoTablesCtrl extends Controller
      */
     public function update(Request $request)
     {
-      //la route update a été détacher de la route ressource  (faite un php artisan route:list)
-      $Tables_id= $request->input('id');
-      $Tables=IvnTables::find($Tables_id);
-      $Tables->nomTableInv= $request->input('nomTableInv');
-      $Tables->nbrePlaceInv= $request->input('nbrePlaceInv');
-      $Tables->descriptionTableInv= strip_tags($request->input('descriptionTableInv'));
-      $Tables->evn_id= $request->input('evn_id');
-      $Tables->update();
-      Alert::success('Message','Update successfully');
-      return redirect()->route('Tables.index');
+        //la route update a été détacher de la route ressource  (faite un php artisan route:list)
+        $Tables_id = $request->input('id');
+        $Tables = IvnTables::find($Tables_id);
+        try {
+            $Tables->nomTableInv = $request->input('nomTableInv');
+            $Tables->nbrePlaceInv = $request->input('nbrePlaceInv');
+            $Tables->descriptionTableInv = strip_tags($request->input('descriptionTableInv'));
+            $Tables->evn_id = $request->input('evn_id');
+            $Tables->update();
+            Alert::success('Message', 'Update successfully');
+            return redirect()->route('Tables.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -134,7 +141,7 @@ class InfoTablesCtrl extends Controller
         $data = IvnTables::find($data_id);
         try {
             $data->delete();
-            Alert::success('Message','Delete successfully');
+            Alert::success('Message', 'Delete successfully');
         } catch (\Illuminate\Database\QueryException $exception) {
             Alert::error('Error', 'Integrity constraint violation: 1451 Cannot delete');
         }
@@ -150,7 +157,7 @@ class InfoTablesCtrl extends Controller
 
         try {
             $data->delete();
-            Alert::success('Message','Delete successfully');
+            Alert::success('Message', 'Delete successfully');
         } catch (\Illuminate\Database\QueryException $exception) {
             $errorInfo = $exception->errorInfo;
 
@@ -170,7 +177,5 @@ class InfoTablesCtrl extends Controller
     {
         preg_match_all("/`(.+?)`/", $errorMessage, $matches);
         return $matches[1];
-
     }
-    }
-
+}

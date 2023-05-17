@@ -57,18 +57,22 @@ class OrganisateurCtrl extends Controller
         }
 
 
+        try {
+            $form_data = array(
+                'nomOrg' =>   $request->nomOrg,
+                'num1Org' =>   $request->num1Org,
+                'num2Org' =>   $request->num2Org,
+                'emailOrg' =>   $request->emailOrg,
+                'whatsappNum' =>   $request->whatsappNum,
+            );
 
-        $form_data = array(
-            'nomOrg' =>   $request->nomOrg,
-            'num1Org' =>   $request->num1Org,
-            'num2Org' =>   $request->num2Org,
-            'emailOrg' =>   $request->emailOrg,
-            'whatsappNum' =>   $request->whatsappNum,
-        );
-
-        Organisateur::create($form_data);
-        Alert::success('Message', 'Add successfully');
-        return redirect()->route('organisateur.index');
+            Organisateur::create($form_data);
+            Alert::success('Message', 'Add successfully');
+            return redirect()->route('organisateur.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -110,13 +114,18 @@ class OrganisateurCtrl extends Controller
         //la route update a été détacher de la route ressource  (faite un php artisan route:list)
         $org_id = $request->input('id');
         $org = Organisateur::find($org_id);
-        $org->nomOrg = $request->input('nomOrg');
-        $org->num1Org = $request->input('num1Org');
-        $org->num2Org = $request->input('num2Org');
-        $org->whatsappNum = $request->input('whatsappNum');
-        $org->save();
-        Alert::success('Message', 'Update successfully');
-        return redirect()->route('organisateur.index');
+        try {
+            $org->nomOrg = $request->input('nomOrg');
+            $org->num1Org = $request->input('num1Org');
+            $org->num2Org = $request->input('num2Org');
+            $org->whatsappNum = $request->input('whatsappNum');
+            $org->save();
+            Alert::success('Message', 'Update successfully');
+            return redirect()->route('organisateur.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**

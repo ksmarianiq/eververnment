@@ -17,10 +17,10 @@ class InformationCtrl extends Controller
      */
     public function index()
     {
-        $Info=InformationSup::all();
-        $Eve=Evenement::all();
+        $Info = InformationSup::all();
+        $Eve = Evenement::all();
 
-        return view('Admin.pages.File_Information.Information',compact('Info','Eve'));
+        return view('Admin.pages.File_Information.Information', compact('Info', 'Eve'));
     }
 
     /**
@@ -50,23 +50,26 @@ class InformationCtrl extends Controller
 
         $error = Validator::make($request->all(), $rules);
 
-        if($error->fails())
-        {
-            Alert::error('Message','Add error');
+        if ($error->fails()) {
+            Alert::error('Message', 'Add error');
             return redirect()->back()->withErrors($error)->withInput();
         }
 
 
+        try {
+            $form_data = array(
+                'titre' =>   $request->titre,
+                'evn_id' =>   $request->evn_id,
+                'codeInf' =>   $request->codeInf,
+            );
 
-        $form_data = array(
-            'titre' =>   $request->titre,
-            'evn_id' =>   $request->evn_id,
-            'codeInf' =>   $request->codeInf,
-        );
-
-        InformationSup::create($form_data);
-        Alert::success('Message','Add successfully');
-        return redirect()->route('Information.index');
+            InformationSup::create($form_data);
+            Alert::success('Message', 'Add successfully');
+            return redirect()->route('Information.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -88,10 +91,10 @@ class InformationCtrl extends Controller
      */
     public function edit($id)
     {
-        $Information=InformationSup::find($id);
+        $Information = InformationSup::find($id);
         return response()->json([
-           'status'=>200,
-           'Information'=>$Information,
+            'status' => 200,
+            'Information' => $Information,
         ]);
     }
 
@@ -105,14 +108,19 @@ class InformationCtrl extends Controller
     public function update(Request $request)
     {
         //la route update a été détacher de la route ressource  (faite un php artisan route:list)
-        $Info_id= $request->input('id');
-        $Info=InformationSup::find($Info_id);
-        $Info->titre= $request->input('titre');
-        $Info->codeInf= $request->input('codeInf');
-        $Info->evn_id= $request->input('evn_id');
-        $Info->update();
-        Alert::success('Message','Update successfully');
-        return redirect()->route('Information.index');
+        $Info_id = $request->input('id');
+        $Info = InformationSup::find($Info_id);
+        try {
+            $Info->titre = $request->input('titre');
+            $Info->codeInf = $request->input('codeInf');
+            $Info->evn_id = $request->input('evn_id');
+            $Info->update();
+            Alert::success('Message', 'Update successfully');
+            return redirect()->route('Information.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
 
 
@@ -137,7 +145,7 @@ class InformationCtrl extends Controller
 
         try {
             $data->delete();
-            Alert::success('Message','Delete successfully');
+            Alert::success('Message', 'Delete successfully');
         } catch (\Illuminate\Database\QueryException $exception) {
             $errorInfo = $exception->errorInfo;
 
@@ -157,6 +165,5 @@ class InformationCtrl extends Controller
     {
         preg_match_all("/`(.+?)`/", $errorMessage, $matches);
         return $matches[1];
-
     }
 }

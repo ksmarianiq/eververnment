@@ -18,11 +18,11 @@ class Table_HotesseCtrl extends Controller
      */
     public function index()
     {
-        $Ivn=IvnTables::all();
-        $Hote=Hotesse::all();
-        $Table_Hotesse=Association::all();
+        $Ivn = IvnTables::all();
+        $Hote = Hotesse::all();
+        $Table_Hotesse = Association::all();
 
-        return view('Admin.pages.File_Table_Hotesse.Table_Hotesse',compact('Ivn','Hote','Table_Hotesse'));
+        return view('Admin.pages.File_Table_Hotesse.Table_Hotesse', compact('Ivn', 'Hote', 'Table_Hotesse'));
     }
 
     /**
@@ -51,22 +51,25 @@ class Table_HotesseCtrl extends Controller
 
         $error = Validator::make($request->all(), $rules);
 
-        if($error->fails())
-        {
-            Alert::error('Message','Add error');
+        if ($error->fails()) {
+            Alert::error('Message', 'Add error');
             return redirect()->back()->withErrors($error)->withInput();
         }
 
 
+        try {
+            $form_data = array(
+                'hote_id' =>   $request->hote_id,
+                'ivn_table_id' =>   $request->ivn_table_id,
+            );
 
-        $form_data = array(
-            'hote_id' =>   $request->hote_id,
-            'ivn_table_id' =>   $request->ivn_table_id,
-        );
-
-        Association::create($form_data);
-        Alert::success('Message','Add successfully');
-        return redirect()->route('Table_Hotesse.index');
+            Association::create($form_data);
+            Alert::success('Message', 'Add successfully');
+            return redirect()->route('Table_Hotesse.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -88,10 +91,10 @@ class Table_HotesseCtrl extends Controller
      */
     public function edit($id)
     {
-        $Table_Hotesse=Association::find($id);
+        $Table_Hotesse = Association::find($id);
         return response()->json([
-           'status'=>200,
-           'Table_Hotesse'=>$Table_Hotesse,
+            'status' => 200,
+            'Table_Hotesse' => $Table_Hotesse,
         ]);
     }
 
@@ -105,13 +108,18 @@ class Table_HotesseCtrl extends Controller
     public function update(Request $request)
     {
         //la route update a été détacher de la route ressource  (faite un php artisan route:list)
-        $Table_Hotesse_id= $request->input('id');
-        $Table_Hotesse=Association::find($Table_Hotesse_id);
-        $Table_Hotesse->hote_id= $request->input('hote_id');
-        $Table_Hotesse->ivn_table_id= $request->input('ivn_table_id');
-        $Table_Hotesse->update();
-        Alert::success('Message','Update successfully');
-        return redirect()->route('Table_Hotesse.index');
+        $Table_Hotesse_id = $request->input('id');
+        $Table_Hotesse = Association::find($Table_Hotesse_id);
+        try {
+            $Table_Hotesse->hote_id = $request->input('hote_id');
+            $Table_Hotesse->ivn_table_id = $request->input('ivn_table_id');
+            $Table_Hotesse->update();
+            Alert::success('Message', 'Update successfully');
+            return redirect()->route('Table_Hotesse.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
 
 
@@ -125,7 +133,7 @@ class Table_HotesseCtrl extends Controller
     public function destroy(Request $request)
     {
 
-      
+
         $data_id = $request->input('deleteTables_Hotesse');
         $data = Association::find($data_id);
 

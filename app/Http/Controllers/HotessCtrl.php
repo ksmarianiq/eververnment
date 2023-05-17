@@ -17,9 +17,9 @@ class HotessCtrl extends Controller
      */
     public function index()
     {
-        $Hote=Hotesse::all();
-        $Eve=Evenement::all();
-        return view('Admin.pages.File_Hotesse.Hotesse',compact('Hote','Eve'));
+        $Hote = Hotesse::all();
+        $Eve = Evenement::all();
+        return view('Admin.pages.File_Hotesse.Hotesse', compact('Hote', 'Eve'));
     }
 
     /**
@@ -51,26 +51,28 @@ class HotessCtrl extends Controller
 
         $error = Validator::make($request->all(), $rules);
 
-        if($error->fails())
-        {
-            Alert::error('Message','Add error');
+        if ($error->fails()) {
+            Alert::error('Message', 'Add error');
             return redirect()->back()->withErrors($error)->withInput();
         }
 
 
+        try {
+            $form_data = array(
+                'nomEvn' => $request->nomEvn,
+                'evn_id' =>   $request->evn_id,
+                'nomHote' => $request->nomHote,
+                'emailHote' => $request->emailHote,
+                'telephoneHote' => $request->telephoneHote,
+            );
 
-        $form_data = array(
-            'nomEvn' => $request->nomEvn,
-            'evn_id' =>   $request->evn_id,
-            'nomHote' =>$request->nomHote,
-            'emailHote' =>$request->emailHote,
-            'telephoneHote' =>$request->telephoneHote,
-        );
-
-        Hotesse::create($form_data);
-        Alert::success('Message','Add successfully');
-        return redirect()->route('Hotesse.index');
-        
+            Hotesse::create($form_data);
+            Alert::success('Message', 'Add successfully');
+            return redirect()->route('Hotesse.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -92,12 +94,12 @@ class HotessCtrl extends Controller
      */
     public function edit($id)
     {
-         //cette route edit me permet de recuperer id par api en json lorqu'on clique sur le button edit
-      $Hote=Hotesse::find($id);
-      return response()->json([
-         'status'=>200,
-         'Hotesse'=>$Hote,
-      ]);
+        //cette route edit me permet de recuperer id par api en json lorqu'on clique sur le button edit
+        $Hote = Hotesse::find($id);
+        return response()->json([
+            'status' => 200,
+            'Hotesse' => $Hote,
+        ]);
     }
 
     /**
@@ -109,16 +111,22 @@ class HotessCtrl extends Controller
      */
     public function update(Request $request)
     {
-         //la route update a été détacher de la route ressource  (faite un php artisan route:list)
-         $Hote_id= $request->input('id');
-       $prog=Hotesse::find($Hote_id);
-       $prog->nomHote= $request->input('nomHote');
-       $prog->emailHote= $request->input('emailHote');
-       $prog->telephoneHote= $request->input('telephoneHote');
-       $prog->evn_id= $request->input('evn_id');
-       $prog->update();
-       Alert::success('Message','Update successfully');
-       return redirect()->route('Hotesse.index');
+        //la route update a été détacher de la route ressource  (faite un php artisan route:list)
+
+        $Hote_id = $request->input('id');
+        $prog = Hotesse::find($Hote_id);
+        try {
+            $prog->nomHote = $request->input('nomHote');
+            $prog->emailHote = $request->input('emailHote');
+            $prog->telephoneHote = $request->input('telephoneHote');
+            $prog->evn_id = $request->input('evn_id');
+            $prog->update();
+            Alert::success('Message', 'Update successfully');
+            return redirect()->route('Hotesse.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -136,7 +144,7 @@ class HotessCtrl extends Controller
 
         try {
             $data->delete();
-            Alert::success('Message','Delete successfully');
+            Alert::success('Message', 'Delete successfully');
         } catch (\Illuminate\Database\QueryException $exception) {
             $errorInfo = $exception->errorInfo;
 
@@ -157,5 +165,4 @@ class HotessCtrl extends Controller
         preg_match_all("/`(.+?)`/", $errorMessage, $matches);
         return $matches[1];
     }
-  }
-
+}

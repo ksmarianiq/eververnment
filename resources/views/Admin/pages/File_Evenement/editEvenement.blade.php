@@ -25,6 +25,7 @@
                                     <label class="control-label" for="org_id">Nom Organisateur </label>
                                     <select class="form-control" id="org_id" value="" name="org_id"
                                         style=" height:43px;" required>
+                                        <option selected>Choisir un nom</option>
                                         @foreach ($org as $item)
                                           <option value="{{$item->id}}">{{$item->nomOrg}}</option>
                                         @endforeach
