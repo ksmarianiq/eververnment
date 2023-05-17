@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->String('nomTableInv')->nullable();
             $table->String('nbrePlaceInv')->nullable();
-            $table->text('descriptionInv')->nullable();
+            $table->text('descriptionTableInv')->nullable();
             $table->bigInteger('evn_id')->unsigned()->nullable();
             $table->foreign('evn_id')->references('id')->on('evenements');
             $table->timestamps();

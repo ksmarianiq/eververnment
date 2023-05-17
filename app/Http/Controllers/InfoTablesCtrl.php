@@ -53,7 +53,8 @@ class InfoTablesCtrl extends Controller
 
         if($error->fails())
         {
-            return response()->json(['errors' => $error->errors()->all()]);
+            Alert::error('Message','Add error');
+            return redirect()->back()->withErrors($error)->withInput();
         }
 
 
@@ -65,7 +66,7 @@ class InfoTablesCtrl extends Controller
             'descriptionTableInv' =>strip_tags($request->descriptionTableInv),
         );
 
-        
+
         IvnTables::create($form_data);
         Alert::success('Message','Add successfully');
         return redirect()->route('Tables.index');
@@ -127,10 +128,49 @@ class InfoTablesCtrl extends Controller
      */
     public function destroy(Request $request)
     {
-        $data= $request->input('deleteTables');
-        $data=IvnTables::find($data);
-        $data->delete();
-        Alert::success('Message','Delete successfully');
+
+
+        $data_id = $request->input('deleteTables');
+        $data = IvnTables::find($data_id);
+        try {
+            $data->delete();
+            Alert::success('Message','Delete successfully');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Integrity constraint violation: 1451 Cannot delete');
+        }
+        return redirect()->route('Tables.index');
+
+
+
+
+
+
+        $data_id = $request->input('deleteTables');
+        $data = IvnTables::find($data_id);
+
+        try {
+            $data->delete();
+            Alert::success('Message','Delete successfully');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            $errorInfo = $exception->errorInfo;
+
+            if ($errorInfo[0] === '23000' && $errorInfo[1] === 1451) {
+                $affectedTables = $this->getAffectedTables($errorInfo[2]);
+                $errorMessage = "Impossible de supprimer l'événement. Il est référencé dans les tableaux suivants : " . implode(", ", $affectedTables);
+                Alert::error('Error', $errorMessage);
+            } else {
+                Alert::error('Error', $exception->getMessage());
+            }
+        }
+
         return redirect()->route('Tables.index');
     }
-}
+
+    private function getAffectedTables($errorMessage)
+    {
+        preg_match_all("/`(.+?)`/", $errorMessage, $matches);
+        return $matches[1];
+
+    }
+    }
+

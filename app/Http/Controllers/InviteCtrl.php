@@ -18,10 +18,10 @@ class InviteCtrl extends Controller
      */
     public function index()
     {
-        $Tables=IvnTables::all();
-        $Invite=Invite::all();
-        $Eve=Evenement::all();
-        return view('Admin.pages.File_Invite.Invite',compact('Tables','Eve','Invite'));
+        $Tables = IvnTables::all();
+        $Invite = Invite::all();
+        $Eve = Evenement::all();
+        return view('Admin.pages.File_Invite.Invite', compact('Tables', 'Eve', 'Invite'));
     }
 
     /**
@@ -57,25 +57,25 @@ class InviteCtrl extends Controller
 
 
         $error = Validator::make($request->all(), $rules);
-        if($error->fails())
-        {
-            return response()->json(['errors' => $error->errors()->all()]);
+        if ($error->fails()) {
+            Alert::error('Message', 'Add error');
+            return redirect()->back()->withErrors($error)->withInput();
         }
 
 
 
         $form_data = array(
             'nomInv' =>   $request->nomInv,
-            'telephoneInv' =>$request->telephoneInv,
-            'emailInv' =>$request->emailInv,
-            'nbreInv' =>$request->nbreInv,
-            'ivn_table_id' =>$request->ivn_table_id,
-            'evn_id' =>$request->evn_id,
-            'codeInv' =>$request->codeInv,
+            'telephoneInv' => $request->telephoneInv,
+            'emailInv' => $request->emailInv,
+            'nbreInv' => $request->nbreInv,
+            'ivn_table_id' => $request->ivn_table_id,
+            'evn_id' => $request->evn_id,
+            'codeInv' => $request->codeInv,
         );
 
         Invite::create($form_data);
-        Alert::success('Message','Add successfully');
+        Alert::success('Message', 'Add successfully');
         return redirect()->route('Invite.index');
     }
 
@@ -98,10 +98,10 @@ class InviteCtrl extends Controller
      */
     public function edit($id)
     {
-        $Invite=Invite::find($id);
+        $Invite = Invite::find($id);
         return response()->json([
-           'status'=>200,
-           'Invite'=>$Invite,
+            'status' => 200,
+            'Invite' => $Invite,
         ]);
     }
 
@@ -114,19 +114,19 @@ class InviteCtrl extends Controller
      */
     public function update(Request $request)
     {
-      //la route update a été détacher de la route ressource  (faite un php artisan route:list)
-      $Invite_id= $request->input('id');
-      $Invite=Invite::find($Invite_id);
-      $Invite->nomInv= $request->input('nomInv');
-      $Invite->telephoneInv= $request->input('telephoneInv');
-      $Invite->emailInv= $request->input('emailInv');
-      $Invite->nbreInv= $request->input('nbreInv');
-      $Invite->ivn_table_id= $request->input('ivn_table_id');
-      $Invite->evn_id= $request->input('evn_id');
-      $Invite->codeInv= $request->input('codeInv');
-      $Invite->update();
-      Alert::success('Message','Update successfully');
-      return redirect()->route('Invite.index');
+        //la route update a été détacher de la route ressource  (faite un php artisan route:list)
+        $Invite_id = $request->input('id');
+        $Invite = Invite::find($Invite_id);
+        $Invite->nomInv = $request->input('nomInv');
+        $Invite->telephoneInv = $request->input('telephoneInv');
+        $Invite->emailInv = $request->input('emailInv');
+        $Invite->nbreInv = $request->input('nbreInv');
+        $Invite->ivn_table_id = $request->input('ivn_table_id');
+        $Invite->evn_id = $request->input('evn_id');
+        $Invite->codeInv = $request->input('codeInv');
+        $Invite->update();
+        Alert::success('Message', 'Update successfully');
+        return redirect()->route('Invite.index');
     }
 
     /**
@@ -137,10 +137,32 @@ class InviteCtrl extends Controller
      */
     public function destroy(Request $request)
     {
-        $data= $request->input('deleteInv');
-        $data=Invite::find($data);
-        $data->delete();
-        Alert::success('Message','Delete successfully');
+
+
+        $data_id = $request->input('deleteInv');
+        $data = Invite::find($data_id);
+
+        try {
+            $data->delete();
+            Alert::success('Message', 'Delete successfully');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            $errorInfo = $exception->errorInfo;
+
+            if ($errorInfo[0] === '23000' && $errorInfo[1] === 1451) {
+                $affectedTables = $this->getAffectedTables($errorInfo[2]);
+                $errorMessage = "Impossible de supprimer l'événement. Il est référencé dans les tableaux suivants : " . implode(", ", $affectedTables);
+                Alert::error('Error', $errorMessage);
+            } else {
+                Alert::error('Error', $exception->getMessage());
+            }
+        }
+
         return redirect()->route('Invite.index');
+    }
+
+    private function getAffectedTables($errorMessage)
+    {
+        preg_match_all("/`(.+?)`/", $errorMessage, $matches);
+        return $matches[1];
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Organisateur;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 use RealRashid\SweetAlert\Facades\Alert;
+
 class EvenementCtrl extends Controller
 {
     /**
@@ -17,9 +18,9 @@ class EvenementCtrl extends Controller
      */
     public function index()
     {
-        $Eve=Evenement::all();
-        $org=Organisateur::all();
-        return view('Admin.pages.File_Evenement.Evenement',compact('Eve','org'));
+        $Eve = Evenement::all();
+        $org = Organisateur::all();
+        return view('Admin.pages.File_Evenement.Evenement', compact('Eve', 'org'));
     }
 
     /**
@@ -40,6 +41,15 @@ class EvenementCtrl extends Controller
      */
     public function store(Request $request)
     {
+        /*
+Dans ce code, nous avons enveloppé la partie de création de l'événement avec un bloc try-catch
+ pour capturer l'exception de format de date invalide ou de valeur incorrecte pour la colonne org_id.
+ Si une telle exception est levée, nous utilisons $exception->getMessage() pour obtenir le message d'erreur
+ spécifique et l'afficher dans l'alerte d'erreur. De plus, nous renvoyons également l'utilisateur à la page précédente
+  avec les données saisies précédemment grâce à redirect()->back()->withInput().
+
+*/
+
         $rules = array(
             'nomEvn' =>  'required',
             'org_id' =>  'required',
@@ -47,24 +57,25 @@ class EvenementCtrl extends Controller
 
         $error = Validator::make($request->all(), $rules);
 
-        if($error->fails())
-        {
-            Alert::danger('Message','Add error');
-            return response()->json(['errors' => $error->errors()->all()]);
+        if ($error->fails()) {
+            Alert::error('Message', 'Add error');
+            return redirect()->back()->withErrors($error)->withInput();
         }
 
+        try {
+            $form_data = array(
+                'nomEvn' =>   $request->nomEvn,
+                'org_id' =>   $request->org_id,
+            );
 
-
-        $form_data = array(
-            'nomEvn' =>   $request->nomEvn,
-            'org_id' =>   $request->org_id,
-        );
-
-        Evenement::create($form_data);
-        Alert::success('Message','Add successfully');
-        return redirect()->route('Evenement.index');
+            Evenement::create($form_data);
+            Alert::success('Message', 'Add successfully');
+            return redirect()->route('Evenement.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
-
     /**
      * Display the specified resource.
      *
@@ -84,10 +95,10 @@ class EvenementCtrl extends Controller
      */
     public function edit($id)
     {
-        $Eve=Evenement::find($id);
+        $Eve = Evenement::find($id);
         return response()->json([
-           'status'=>200,
-           'Evenement'=>$Eve,
+            'status' => 200,
+            'Evenement' => $Eve,
         ]);
     }
 
@@ -100,13 +111,36 @@ class EvenementCtrl extends Controller
      */
     public function update(Request $request)
     {
-        $Eve_id=$request->input('id');
-        $Eve=Evenement::find($Eve_id);
-        $Eve->nomEvn= $request->input('nomEvn');
-        $Eve->org_id= $request->input('org_id');
-        $Eve->save();
-        Alert::success('Message','Update successfully');
-        return redirect()->route('Evenement.index');
+        $Eve_id = $request->input('id');
+        $Eve = Evenement::find($Eve_id);
+
+        if (!$Eve) {
+            Alert::error('Message', 'Evenement not found');
+            return redirect()->route('Evenement.index');
+        }
+
+        $rules = array(
+            'nomEvn' => ['required', 'string', 'max:255'],
+            'org_id' => ['required'],
+        );
+
+        $error = Validator::make($request->all(), $rules);
+
+        if ($error->fails()) {
+            Alert::error('Message', 'Update error');
+            return redirect()->back()->withErrors($error)->withInput();
+        }
+        try {
+            $Eve->nomEvn = $request->input('nomEvn');
+            $Eve->org_id = $request->input('org_id');
+            $Eve->save();
+
+            Alert::success('Message', 'Update successfully');
+            return redirect()->route('Evenement.index');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            Alert::error('Error', 'Veuillez rempli tous champs');
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -117,10 +151,39 @@ class EvenementCtrl extends Controller
      */
     public function destroy(Request $request)
     {
-        $data= $request->input('deleteEve');
-        $data=Evenement::find($data);
-        $data->delete();
-        Alert::success('Message','Delete successfully');
+        /*
+         Dans ce code, nous utilisons un bloc try-catch pour capturer
+         l'exception de violation de contrainte d'intégrité (foreign key constraint)
+         lors de la suppression de l'événement. Si une telle exception est levée,
+         nous utilisons $exception->getMessage() pour obtenir le message d'erreur spécifique
+         et l'afficher dans l'alerte d'erreur.
+        */
+
+
+        $data_id = $request->input('deleteEve');
+        $data = Evenement::find($data_id);
+
+        try {
+            $data->delete();
+            Alert::success('Message', 'Delete successfully');
+        } catch (\Illuminate\Database\QueryException $exception) {
+            $errorInfo = $exception->errorInfo;
+
+            if ($errorInfo[0] === '23000' && $errorInfo[1] === 1451) {
+                $affectedTables = $this->getAffectedTables($errorInfo[2]);
+                $errorMessage = "Impossible de supprimer l'événement. Il est référencé dans les tableaux suivants : " . implode(", ", $affectedTables);
+                Alert::error('Error', $errorMessage);
+            } else {
+                Alert::error('Error', $exception->getMessage());
+            }
+        }
+
         return redirect()->route('Evenement.index');
+    }
+
+    private function getAffectedTables($errorMessage)
+    {
+        preg_match_all("/`(.+?)`/", $errorMessage, $matches);
+        return $matches[1];
     }
 }

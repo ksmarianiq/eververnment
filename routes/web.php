@@ -9,6 +9,8 @@ use App\Http\Controllers\InviteCtrl;
 use App\Http\Controllers\OrganisateurCtrl;
 use App\Http\Controllers\ProgrammeCtrl;
 use App\Http\Controllers\InformationCtrl;
+use App\Http\Controllers\Table_HotesseCtrl;
+use App\Http\Controllers\UserCtrl;
 use App\Models\Evenement;
 use Illuminate\Support\Facades\Auth;
 
@@ -75,9 +77,22 @@ Route::middleware(['auth', 'user-role:editor'])->group(function () {
     Route::delete("/deleteIn", [InviteCtrl::class, 'destroy'])->name('delete-Invite');
 
      //INFORMATION SUPPLEMENTAIRE
+
      Route::resource('/Information', InformationCtrl::class);
      Route::put("/updateInfo", [InformationCtrl::class, 'update'])->name('update-Information');
      Route::post('/test/check', 'InformationCtrl@check')->name('test.check');
      Route::delete("/deleteInfo", [InformationCtrl::class, 'destroy'])->name('delete-Information');
+
+      //ASSOCIATION HOTESSE ET TABLE
+
+      Route::resource('/Table_Hotesse', Table_HotesseCtrl::class);
+      Route::put("/updateTh", [Table_HotesseCtrl::class, 'update'])->name('update-Table_Hotesse');
+      Route::delete("/deleteTh", [Table_HotesseCtrl::class, 'destroy'])->name('delete-Table_Hotesse');
+
+
+//USER
+      Route::resource('/user', UserCtrl::class);
+      Route::put("/update_user", [UserCtrl::class, 'update'])->name('update-user');
+      Route::delete("/delete_user", [UserCtrl::class, 'destroy'])->name('delete-user');
 });
 

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Organisateur;
+use App\Models\Association;
+use App\Models\Hotesse;
+use App\Models\IvnTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Yajra\DataTables\Facades\DataTables;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class OrganisateurCtrl extends Controller
+class Table_HotesseCtrl extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +18,11 @@ class OrganisateurCtrl extends Controller
      */
     public function index()
     {
+        $Ivn=IvnTables::all();
+        $Hote=Hotesse::all();
+        $Table_Hotesse=Association::all();
 
-        $org = Organisateur::all();
-
-        return view('Admin.pages.File_Organisation.Organisateur', compact('org'));
+        return view('Admin.pages.File_Table_Hotesse.Table_Hotesse',compact('Ivn','Hote','Table_Hotesse'));
     }
 
     /**
@@ -41,34 +43,30 @@ class OrganisateurCtrl extends Controller
      */
     public function store(Request $request)
     {
+
         $rules = array(
-            'nomOrg' =>  'required',
-            'num1Org' =>  'required',
-            'num2Org' =>  'required',
-            'emailOrg' =>  'required',
-            'whatsappNum' =>  'required',
+            'hote_id' =>  'required',
+            'ivn_table_id' =>  'required',
         );
 
         $error = Validator::make($request->all(), $rules);
 
-        if ($error->fails()) {
-            Alert::error('Message', 'Add error');
+        if($error->fails())
+        {
+            Alert::error('Message','Add error');
             return redirect()->back()->withErrors($error)->withInput();
         }
 
 
 
         $form_data = array(
-            'nomOrg' =>   $request->nomOrg,
-            'num1Org' =>   $request->num1Org,
-            'num2Org' =>   $request->num2Org,
-            'emailOrg' =>   $request->emailOrg,
-            'whatsappNum' =>   $request->whatsappNum,
+            'hote_id' =>   $request->hote_id,
+            'ivn_table_id' =>   $request->ivn_table_id,
         );
 
-        Organisateur::create($form_data);
-        Alert::success('Message', 'Add successfully');
-        return redirect()->route('organisateur.index');
+        Association::create($form_data);
+        Alert::success('Message','Add successfully');
+        return redirect()->route('Table_Hotesse.index');
     }
 
     /**
@@ -90,11 +88,10 @@ class OrganisateurCtrl extends Controller
      */
     public function edit($id)
     {
-        //cette route edit me permet de recuperer id par api en json lorqu'on clique sur le button edit
-        $org = Organisateur::find($id);
+        $Table_Hotesse=Association::find($id);
         return response()->json([
-            'status' => 200,
-            'organisateur' => $org,
+           'status'=>200,
+           'Table_Hotesse'=>$Table_Hotesse,
         ]);
     }
 
@@ -108,16 +105,16 @@ class OrganisateurCtrl extends Controller
     public function update(Request $request)
     {
         //la route update a été détacher de la route ressource  (faite un php artisan route:list)
-        $org_id = $request->input('id');
-        $org = Organisateur::find($org_id);
-        $org->nomOrg = $request->input('nomOrg');
-        $org->num1Org = $request->input('num1Org');
-        $org->num2Org = $request->input('num2Org');
-        $org->whatsappNum = $request->input('whatsappNum');
-        $org->save();
-        Alert::success('Message', 'Update successfully');
-        return redirect()->route('organisateur.index');
+        $Table_Hotesse_id= $request->input('id');
+        $Table_Hotesse=Association::find($Table_Hotesse_id);
+        $Table_Hotesse->hote_id= $request->input('hote_id');
+        $Table_Hotesse->ivn_table_id= $request->input('ivn_table_id');
+        $Table_Hotesse->update();
+        Alert::success('Message','Update successfully');
+        return redirect()->route('Table_Hotesse.index');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -128,8 +125,9 @@ class OrganisateurCtrl extends Controller
     public function destroy(Request $request)
     {
 
-        $data_id = $request->input('deleteOrg');
-        $data = Organisateur::find($data_id);
+      
+        $data_id = $request->input('deleteTables_Hotesse');
+        $data = Association::find($data_id);
 
         try {
             $data->delete();
@@ -146,12 +144,6 @@ class OrganisateurCtrl extends Controller
             }
         }
 
-        return redirect()->route('organisateur.index');
-    }
-
-    private function getAffectedTables($errorMessage)
-    {
-        preg_match_all("/`(.+?)`/", $errorMessage, $matches);
-        return $matches[1];
+        return redirect()->route('Table_Hotesse.index');
     }
 }

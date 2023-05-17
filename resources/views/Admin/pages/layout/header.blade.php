@@ -324,6 +324,13 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="{{ route('Table_Hotesse.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Table d'hôtesse</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
                                     <a href="{{ route('Information.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Autres Informations</p>
@@ -343,7 +350,7 @@
                             <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
-                                    <a href="admin-pays.html" class="nav-link">
+                                    <a href="{{ route('user.index') }}" class="nav-link">
                                         <i class="nav-icon far fa-user text-info"></i>
                                         <p>Utilisateurs</p>
                                     </a>
@@ -407,6 +414,7 @@
                     @yield('Evenement')
                     @yield('Invite')
                     @yield('Information')
+                    @yield('Table_Hotesse')
                 </div><!-- /.container-fluid -->
 
             </section>
