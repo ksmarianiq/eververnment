@@ -13,7 +13,6 @@ class IvnTables extends Model
         'nbrePlaceInv',
         'descriptionTableInv',
         'evn_id',
-
     ];
     public function evenement(){
         return $this->belongsTo(Evenement::class,'evn_id','id');

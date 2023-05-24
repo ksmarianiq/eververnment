@@ -42,8 +42,8 @@
                         <tbody>
                             @foreach ($Table_Hotesse as $item)
                                 <tr>
-                                    <td>{{ $item->hotesse->nomHote }}</td>
-                                    <td>{{ $item->ivnTables->nomTableInv }}</td>
+                                    <td>{{ $item->hotesse->nomHote  ?? 'Nom Hotesse non défini'  }}</td>
+                                    <td>{{ $item->ivnTables->nomTableInv ?? 'Nom Table non défini' }}</td>
                                     <td>
                                         <div class=" d-flex grid ">
 

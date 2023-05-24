@@ -20,11 +20,11 @@ return new class extends Migration
             $table->String('emailInv')->nullable();
             $table->String('nbreInv')->nullable();
             $table->String('codeInv')->unique()->nullable();
-            $table->String('qrCodeInv')->nullable();
-            $table->bigInteger('evn_id')->unsigned();
+            $table->String('qrCodeInv')->nullable()->nullable();;
+            $table->bigInteger('evn_id')->unsigned()->nullable();;
             $table->foreign('evn_id')->references('id')->on('evenements')->nullable();
-            $table->bigInteger('ivn_table_id')->unsigned();
-            $table->foreign('ivn_table_id')->references('id')->on('ivn_tables');
+            $table->bigInteger('ivn_table_id')->unsigned()->nullable();;
+            $table->foreign('ivn_table_id')->references('id')->on('ivn_tables')->nullable();;
 
 
             $table->timestamps();

@@ -41,7 +41,6 @@ class HotessCtrl extends Controller
     public function store(Request $request)
     {
         $rules = array(
-            'evn_id' =>  'required',
             'nomHote' =>  'required',
             'emailHote' =>  'required',
             'telephoneHote' =>  'required',

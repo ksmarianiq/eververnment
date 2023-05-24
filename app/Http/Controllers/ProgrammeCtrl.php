@@ -48,7 +48,6 @@ class ProgrammeCtrl extends Controller
             'heureProg' =>  'required',
             'lieuProg' =>  'required',
             'descriptionProg' =>  'required',
-            'evn_id' =>  'required',
             'latitude' =>  'required',
             'longitude' =>  'required',
             'codeProg' =>  'required',

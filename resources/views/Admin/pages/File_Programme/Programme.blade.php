@@ -59,7 +59,7 @@
                             <td>{{ $item->dateProg }}</td>
                             <td>{{ $item->heureProg }} </td>
                             <td>{{ $item->lieuProg }}</td>
-                            <td>{{ $item->evenement->nomEvn }}</td>
+                            <td>{{ $item->evenement->nomEvn ?? 'Evenement non défini'}}</td>
                             <td>{{ $item->latitude }}</td>
                             <td>{{ $item->longitude }}</td>
                             <td>{{ QrCode::size(80)->generate($item->codeProg) }}</td>

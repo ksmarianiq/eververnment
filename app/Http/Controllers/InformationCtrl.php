@@ -44,8 +44,7 @@ class InformationCtrl extends Controller
 
         $rules = array(
             'titre' =>  'required',
-            'evn_id' =>  'required',
-            'codeInf' =>  'required',
+            
         );
 
         $error = Validator::make($request->all(), $rules);

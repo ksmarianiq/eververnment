@@ -46,7 +46,7 @@
                                 <tr>
                                     <td>{{ $item->nomTableInv }}</td>
                                     <td>{{ $item->nbrePlaceInv }}</td>
-                                    <td>{{ $item->evenement->nomEvn }}</td>
+                                    <td>{{ $item->evenement->nomEvn ?? 'Evenement non défini' }}</td>
                                     <td>{{ $item->descriptionTableInv }}</td>
                                     <td>
                                         <div class=" d-flex grid ">

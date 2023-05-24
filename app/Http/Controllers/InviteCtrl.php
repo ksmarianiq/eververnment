@@ -48,8 +48,6 @@ class InviteCtrl extends Controller
             'telephoneInv' =>  'required',
             'emailInv' =>  'required',
             'nbreInv' =>  'required',
-            'ivn_table_id' =>  'required',
-            'evn_id' =>  'required',
             'codeInv' =>  'required',
         );
 
@@ -61,7 +59,12 @@ class InviteCtrl extends Controller
             Alert::error('Message', 'Add error');
             return redirect()->back()->withErrors($error)->withInput();
         }
+/*
+Nom Table -> Table Adulte
+Nombre D'invité -> Nombre Adulte
+Table Enfant & Nombre Enfant
 
+*/
 
         try {
             $form_data = array(

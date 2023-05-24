@@ -18,7 +18,7 @@ class EvenementCtrl extends Controller
      */
     public function index()
     {
-        $Eve = Evenement::all();
+        $Eve = Evenement::with('organisateur')->get();
         $org = Organisateur::all();
         return view('Admin.pages.File_Evenement.Evenement', compact('Eve', 'org'));
     }
@@ -39,43 +39,41 @@ class EvenementCtrl extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        /*
+    /*
 Dans ce code, nous avons enveloppé la partie de création de l'événement avec un bloc try-catch
- pour capturer l'exception de format de date invalide ou de valeur incorrecte pour la colonne org_id.
- Si une telle exception est levée, nous utilisons $exception->getMessage() pour obtenir le message d'erreur
- spécifique et l'afficher dans l'alerte d'erreur. De plus, nous renvoyons également l'utilisateur à la page précédente
-  avec les données saisies précédemment grâce à redirect()->back()->withInput().
+pour capturer l'exception de format de date invalide ou de valeur incorrecte pour la colonne org_id.
+Si une telle exception est levée, nous utilisons $exception->getMessage() pour obtenir le message d'erreur
+spécifique et l'afficher dans l'alerte d'erreur. De plus, nous renvoyons également l'utilisateur à la page précédente
+avec les données saisies précédemment grâce à redirect()->back()->withInput().
 
 */
+public function store(Request $request)
+{
+    $rules = array(
+        'nomEvn' => 'required',
+    );
 
-        $rules = array(
-            'nomEvn' =>  'required',
-            'org_id' =>  'required',
+    $error = Validator::make($request->all(), $rules);
+
+    if ($error->fails()) {
+        Alert::error('Message', 'Add error');
+        return redirect()->back()->withErrors($error)->withInput();
+    }
+
+    try {
+        $form_data = array(
+            'nomEvn' => $request->nomEvn,
+            'org_id' => $request->org_id,
         );
 
-        $error = Validator::make($request->all(), $rules);
-
-        if ($error->fails()) {
-            Alert::error('Message', 'Add error');
-            return redirect()->back()->withErrors($error)->withInput();
-        }
-
-        try {
-            $form_data = array(
-                'nomEvn' =>   $request->nomEvn,
-                'org_id' =>   $request->org_id,
-            );
-
-            Evenement::create($form_data);
-            Alert::success('Message', 'Add successfully');
-            return redirect()->route('Evenement.index');
-        } catch (\Illuminate\Database\QueryException $exception) {
-            Alert::error('Error', 'Veuillez rempli tous champs');
-            return redirect()->back()->withInput();
-        }
+        Evenement::create($form_data);
+        Alert::success('Message', 'Add successfully');
+        return redirect()->route('Evenement.index');
+    } catch (\Illuminate\Database\QueryException $exception) {
+    Alert::error('Error', 'Une erreur s\'est produite lors de l\'ajout'  /*. $exception->getMessage()*/);
+        return redirect()->back()->withInput();
     }
+}
     /**
      * Display the specified resource.
      *

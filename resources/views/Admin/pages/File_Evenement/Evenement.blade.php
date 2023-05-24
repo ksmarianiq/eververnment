@@ -43,7 +43,7 @@
                             @foreach ($Eve as $item)
                                 <tr>
                                     <td>{{ $item->nomEvn }}</td>
-                                    <td>{{ $item->organisateur->nomOrg }}</td>
+                                    <td> {{ $item->organisateur->nomOrg ?? 'Organisateur non défini' }}</td>
                                     <td>
                                         <div class=" d-flex grid ">
                                             <div class="g-col-4">

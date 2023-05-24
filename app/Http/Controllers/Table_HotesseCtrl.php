@@ -45,8 +45,7 @@ class Table_HotesseCtrl extends Controller
     {
 
         $rules = array(
-            'hote_id' =>  'required',
-            'ivn_table_id' =>  'required',
+           
         );
 
         $error = Validator::make($request->all(), $rules);

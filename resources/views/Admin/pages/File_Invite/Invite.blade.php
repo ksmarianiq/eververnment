@@ -56,8 +56,8 @@
                             <td>{{ $item->telephoneInv }}</td>
                             <td>{{ $item->nbreInv }} </td>
                             <td>{{ QrCode::size(80)->generate($item->codeInv) }}</td>
-                            <td>{{ $item->tables->nomTableInv  }}</td>
-                            <td>{{ $item->evenement->nomEvn }}</td>
+                            <td>{{ $item->tables->nomTableInv  ?? 'Nom Table non défini'  }}</td>
+                            <td>{{ $item->evenement->nomEvn ?? 'Evenement non défini'}}</td>
                             <td>
                                 <div class=" d-flex grid ">
                                     <div class="g-col-4">

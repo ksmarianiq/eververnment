@@ -41,13 +41,15 @@ class InfoTablesCtrl extends Controller
     public function store(Request $request)
     {
         $rules = array(
-            'evn_id' =>  'required',
             'nomTableInv' =>  'required',
             'nbrePlaceInv' =>  'required',
             'descriptionTableInv' =>  'required',
         );
 
-
+/*
+ Organisateur au niveau du formulaire
+ catégorie-> un champ sélecte ('enfant && adulte')
+*/
 
         $error = Validator::make($request->all(), $rules);
 

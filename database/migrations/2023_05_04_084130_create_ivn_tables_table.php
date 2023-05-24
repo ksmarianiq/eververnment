@@ -19,7 +19,7 @@ return new class extends Migration
             $table->String('nbrePlaceInv')->nullable();
             $table->text('descriptionTableInv')->nullable();
             $table->bigInteger('evn_id')->unsigned()->nullable();
-            $table->foreign('evn_id')->references('id')->on('evenements');
+            $table->foreign('evn_id')->references('id')->on('evenements')->nullable();;
             $table->timestamps();
         });
     }

@@ -45,7 +45,7 @@
                             @foreach ($Info as $item)
                                 <tr>
                                     <td>{{ $item->titre }}</td>
-                                    <td>{{ $item->evenement->nomEvn }}</td>
+                                    <td>{{ $item->evenement->nomEvn ?? 'Evenement non défini' }}</td>
                                     <td>{{ QrCode::size(80)->generate($item->codeInf) }}</td>
                                     <td class="text-center"><input type="checkbox"  class="" id="check"/> </td>
                                     <td>

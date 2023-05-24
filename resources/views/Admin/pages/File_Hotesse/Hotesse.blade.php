@@ -47,7 +47,7 @@
                                     <td>{{ $item->nomHote }}</td>
                                     <td>{{ $item->emailHote }}</td>
                                     <td>{{ $item->telephoneHote }}</td>
-                                    <td>{{ $item->evenement->nomEvn }}</td>
+                                    <td>{{ $item->evenement->nomEvn ?? 'Evenement non défini'}}</td>
                                     <td>
                                         <div class=" d-flex grid ">
                                             <div class="g-col-4">

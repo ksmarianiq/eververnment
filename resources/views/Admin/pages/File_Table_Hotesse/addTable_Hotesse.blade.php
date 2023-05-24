@@ -16,8 +16,8 @@
                                 <div class="form-group">
                                     <label class="control-label" for="hote_id">Nom Hotesse</label>
                                     <select class="form-control" id="hote_id" value="" name="hote_id"
-                                        style=" height:43px;" required>
-                                        <option selected>Choisir un nom</option>
+                                        style=" height:43px;">
+                                        <option selected></option>
                                         @foreach ($Hote as $item)
                                             <option value="{{ $item->id }}">{{ $item->nomHote }}</option>
                                         @endforeach
@@ -28,8 +28,8 @@
                                 <div class="form-group">
                                     <label class="control-label" for="ivn_table_id">Nom Table</label>
                                     <select class="form-control" id="ivn_table_id" value="" name="ivn_table_id"
-                                        style=" height:43px;" required>
-                                        <option selected>Choisir un nom</option>
+                                        style=" height:43px;">
+                                        <option selected></option>
                                         @foreach ($Ivn as $item)
                                             <option value="{{ $item->id }}">{{ $item->nomTableInv }}</option>
                                         @endforeach

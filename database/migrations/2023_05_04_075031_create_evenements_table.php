@@ -22,7 +22,7 @@ return new class extends Migration
             $table->String('codeEvn')->unique()->nullable();
             $table->String('qrCodeEvn')->nullable();
             $table->bigInteger('org_id')->unsigned()->nullable();
-            $table->foreign('org_id')->references('id')->on('organisateurs');
+            $table->foreign('org_id')->references('id')->on('organisateurs')->nullable();
             $table->timestamps();
         });
     }
