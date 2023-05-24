@@ -38,6 +38,7 @@
                                 <th>Nombres Places </th>
                                 <th>Evenements</th>
                                 <th>Descriptions</th>
+                                <th>Categories</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -48,6 +49,7 @@
                                     <td>{{ $item->nbrePlaceInv }}</td>
                                     <td>{{ $item->evenement->nomEvn ?? 'Evenement non défini' }}</td>
                                     <td>{{ $item->descriptionTableInv }}</td>
+                                    <td>{{ $item->categorie }}</td>
                                     <td>
                                         <div class=" d-flex grid ">
                                             <div class="g-col-4">

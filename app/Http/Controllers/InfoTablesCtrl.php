@@ -43,13 +43,10 @@ class InfoTablesCtrl extends Controller
         $rules = array(
             'nomTableInv' =>  'required',
             'nbrePlaceInv' =>  'required',
+            'categorie' =>  'required',
             'descriptionTableInv' =>  'required',
         );
 
-/*
- Organisateur au niveau du formulaire
- catégorie-> un champ sélecte ('enfant && adulte')
-*/
 
         $error = Validator::make($request->all(), $rules);
 
@@ -63,6 +60,7 @@ class InfoTablesCtrl extends Controller
                 'evn_id' =>   $request->evn_id,
                 'nomTableInv' => $request->nomTableInv,
                 'nbrePlaceInv' => $request->nbrePlaceInv,
+                'categorie' => $request->categorie,
                 'descriptionTableInv' => strip_tags($request->descriptionTableInv),
             );
 
@@ -117,6 +115,7 @@ class InfoTablesCtrl extends Controller
         $Tables = IvnTables::find($Tables_id);
         try {
             $Tables->nomTableInv = $request->input('nomTableInv');
+            $Tables->categorie = $request->input('categorie');
             $Tables->nbrePlaceInv = $request->input('nbrePlaceInv');
             $Tables->descriptionTableInv = strip_tags($request->input('descriptionTableInv'));
             $Tables->evn_id = $request->input('evn_id');

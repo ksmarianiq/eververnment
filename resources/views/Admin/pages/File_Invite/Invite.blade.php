@@ -41,9 +41,10 @@
                         <th scope="col">Nom Invités</th>
                         <th scope="col">Emails</th>
                         <th scope="col">N° Tel</th>
-                        <th scope="col">Nombre d'Invités</th>
+                        <th scope="col">Nombre Adultes</th>
+                        <th scope="col">Nombre D'Enfants</th>
                         <th scope="col">QR codes</th>
-                        <th scope="col">Nom Tables</th>
+                        <th scope="col">Tables Adultes</th>
                         <th scope="col">Evenements</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -55,6 +56,7 @@
                             <td>{{ $item->emailInv }}</td>
                             <td>{{ $item->telephoneInv }}</td>
                             <td>{{ $item->nbreInv }} </td>
+                            <td>{{ $item->enfant }} </td>
                             <td>{{ QrCode::size(80)->generate($item->codeInv) }}</td>
                             <td>{{ $item->tables->nomTableInv  ?? 'Nom Table non défini'  }}</td>
                             <td>{{ $item->evenement->nomEvn ?? 'Evenement non défini'}}</td>
@@ -113,6 +115,7 @@
                         $('#ivn_table_id').val(response.Invite.ivn_table_id);
                         $('#evn_id').val(response.Invite.evn_id);
                         $('#codeInv').val(response.Invite.codeInv);
+                        $('#enfant').val(response.Invite.enfant);
                         $('#id').val(response.Invite.id);
                     }
                 })

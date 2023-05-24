@@ -47,6 +47,7 @@ class InviteCtrl extends Controller
             'nomInv' =>  'required',
             'telephoneInv' =>  'required',
             'emailInv' =>  'required',
+            'enfant'  =>  'required',
             'nbreInv' =>  'required',
             'codeInv' =>  'required',
         );
@@ -55,14 +56,13 @@ class InviteCtrl extends Controller
 
 
         $error = Validator::make($request->all(), $rules);
+
         if ($error->fails()) {
             Alert::error('Message', 'Add error');
             return redirect()->back()->withErrors($error)->withInput();
         }
 /*
-Nom Table -> Table Adulte
-Nombre D'invité -> Nombre Adulte
-Table Enfant & Nombre Enfant
+
 
 */
 
@@ -72,6 +72,7 @@ Table Enfant & Nombre Enfant
                 'telephoneInv' => $request->telephoneInv,
                 'emailInv' => $request->emailInv,
                 'nbreInv' => $request->nbreInv,
+                'enfant'=> $request->enfant,
                 'ivn_table_id' => $request->ivn_table_id,
                 'evn_id' => $request->evn_id,
                 'codeInv' => $request->codeInv,
@@ -81,7 +82,7 @@ Table Enfant & Nombre Enfant
             Alert::success('Message', 'Add successfully');
             return redirect()->route('Invite.index');
         } catch (\Illuminate\Database\QueryException $exception) {
-            Alert::error('Error', 'Veuillez rempli tous champs');
+            Alert::error('Error', 'Veuillez rempli tous champs'. $exception->getMessage());
             return redirect()->back()->withInput();
         }
     }
@@ -130,6 +131,7 @@ Table Enfant & Nombre Enfant
             $Invite->emailInv = $request->input('emailInv');
             $Invite->nbreInv = $request->input('nbreInv');
             $Invite->ivn_table_id = $request->input('ivn_table_id');
+            $Invite->enfant = $request->input('enfant');
             $Invite->evn_id = $request->input('evn_id');
             $Invite->codeInv = $request->input('codeInv');
             $Invite->update();

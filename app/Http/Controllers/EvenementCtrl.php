@@ -39,6 +39,8 @@ class EvenementCtrl extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function store(Request $request)
+    {
     /*
 Dans ce code, nous avons enveloppé la partie de création de l'événement avec un bloc try-catch
 pour capturer l'exception de format de date invalide ou de valeur incorrecte pour la colonne org_id.
@@ -47,8 +49,6 @@ spécifique et l'afficher dans l'alerte d'erreur. De plus, nous renvoyons égale
 avec les données saisies précédemment grâce à redirect()->back()->withInput().
 
 */
-public function store(Request $request)
-{
     $rules = array(
         'nomEvn' => 'required',
     );

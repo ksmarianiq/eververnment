@@ -19,6 +19,7 @@ return new class extends Migration
             $table->String('telephoneInv')->nullable();
             $table->String('emailInv')->nullable();
             $table->String('nbreInv')->nullable();
+            $table->String('enfant')->nullable();
             $table->String('codeInv')->unique()->nullable();
             $table->String('qrCodeInv')->nullable()->nullable();;
             $table->bigInteger('evn_id')->unsigned()->nullable();;

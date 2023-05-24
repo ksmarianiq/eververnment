@@ -15,6 +15,7 @@ class Invite extends Model
         'nbreInv',
         'codeInv',
         'qrCodeInv',
+        'enfant',
         'evn_id',
         'ivn_table_id',
 

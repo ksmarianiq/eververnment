@@ -40,8 +40,8 @@
 
                             <div class="col-sm">
                                 <div class="form-group">
-                                    <label class="control-label" for="nbreInv">Nombre d'Invité</label>
-                                    <input type="text" class="form-control" id="nbreInv" name="nbreInv"  style=" height:43px;" required />
+                                    <label class="control-label" for="nbreInv">Nombre Adulte</label>
+                                    <input type="number" class="form-control" id="nbreInv" name="nbreInv"  style=" height:43px;" required />
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
 
                             <div class="col-sm">
                                 <div class="form-group">
-                                    <label class="control-label" for="ivn_table_id">Nom Table</label>
+                                    <label class="control-label" for="ivn_table_id">Table Adulte</label>
                                     <select class="form-control" id="ivn_table_id" value="" name="ivn_table_id"
                                         style=" height:43px;">
                                         <option selected></option>
@@ -73,7 +73,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label class="control-label" for="enfant">Enfant</label>
+                                    <input type="number" class="form-control" id="enfant" name="enfant"  style=" height:43px;" required />
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
 
 
 

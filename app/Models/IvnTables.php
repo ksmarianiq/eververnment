@@ -12,6 +12,7 @@ class IvnTables extends Model
         'nomTableInv',
         'nbrePlaceInv',
         'descriptionTableInv',
+        'categorie',
         'evn_id',
     ];
     public function evenement(){

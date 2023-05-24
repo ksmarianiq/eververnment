@@ -75,6 +75,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label class="control-label" for="enfant">Enfant</label>
+                                    <input type="number" class="form-control" id="enfant" name="enfant"  style=" height:43px;" required />
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="modal-footer justify-content-between">

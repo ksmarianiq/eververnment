@@ -33,11 +33,23 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label" for="nbrePlaceInv">Nombre Place </label>
                                     <input type="text" class="form-control" value="" id="nbrePlaceInv" name="nbrePlaceInv"
                                         style=" height:43px;" required />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="categorie">Categorie</label>
+                                    <select class="form-control" id="categorie" value="" name="categorie"
+                                        style=" height:43px;">
+                                        <option selected></option>
+                                            <option value="Enfant">Enfant</option>
+                                            <option value="Adulte">Adulte</option>
+                                            <option value="Autre">Autres</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -51,8 +63,8 @@
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fermer</button>
-                        <button type="submit" class="btn  btn-primary" id="btnFormEnreg">Enregistrer</button>
+                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fermer</button>
+                         <button type="submit" class="btn  btn-primary" id="btnFormEnreg">Enregistrer</button>
                     </div>
                 </div>
             </form>
