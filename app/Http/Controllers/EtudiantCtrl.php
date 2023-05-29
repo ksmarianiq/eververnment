@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class UserCtrl extends Controller
+class EtudiantCtrl extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +19,8 @@ class UserCtrl extends Controller
      */
     public function index()
     {
-        $user= DB::table('users')
-        ->where('role', '=', 2)
-        ->get();
-
-        return view('Admin.pages.File_User.User',compact('user'));
+        $user= Auth::user();
+        return view('Etudiant.pages.File_User.User',compact('user'));
     }
 
     /**
@@ -66,12 +64,11 @@ class UserCtrl extends Controller
             'email' =>   $request->email,
             'role' =>   $request->role,
             'password' => Hash::make($request->password)
-
         );
 
         User::create($form_data);
         Alert::success('Message','Add successfully');
-        return redirect()->route('user.index');
+        return redirect()->route('etudiant.index');
     }
 
     /**
@@ -123,7 +120,6 @@ class UserCtrl extends Controller
 
         if($error->fails())
         {
-
             Alert::error('Message','Update error');
             return redirect()->back()->withErrors($error)->withInput();
         }
@@ -132,12 +128,10 @@ class UserCtrl extends Controller
         $user->email = $request->input('email');
         $user->role = $request->input('role');
         $user->password = Hash::make($request->password);
-
-
         $user->update();
 
         Alert::success('Message','Update successfully');
-        return redirect()->route('user.index');
+        return redirect()->route('etudiant.index');
     }
 
 
@@ -156,7 +150,7 @@ class UserCtrl extends Controller
         if(!$user)
         {
             Alert::error('Message','User not found');
-            return redirect()->route('user.index');
+            return redirect()->route('etudiant.index');
         }
 
         if($user->delete())
@@ -168,7 +162,7 @@ class UserCtrl extends Controller
             Alert::error('Message','Delete error');
         }
 
-        return redirect()->route('user.index');
+        return redirect()->route('etudiant.index');
 
     }
 }

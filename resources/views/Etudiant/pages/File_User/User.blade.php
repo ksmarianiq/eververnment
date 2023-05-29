@@ -1,4 +1,4 @@
-@extends('Admin.pages.layout.header')
+@extends('Etudiant.pages.layout.header')
 @section('user')
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -18,8 +18,8 @@
 
     <div class="container mb-3 ">
         <div class="card">
-            <div class="card-header" style="background-color:#0b3544;">
-                <h2 class="card-title text-white fw-bolder">Utilisateurs Admin</h2>
+            <div class="card-header" style="background-color:#1b440b;">
+                <h2 class="card-title text-white fw-bolder">Utilisateur Etudiant</h2>
                 <div class="card-tools">
 
                 </div>
@@ -27,9 +27,7 @@
 
             <!-- /.card-header -->
             <div class="card-body">
-                <a id="btnModalFormOrganisteur" href="#modalFormOrganisteur" class="btn text-white mb-4"
-                    style="background-color:#0b3544;" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
-                        class="fas fa-plus-circle"></i> <span>Ajouter une ecole</span></a>
+
                 <div class="dataTable-container">
                     <table id="dtBasictable-a" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
@@ -41,27 +39,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($user as $item)
+
                                 <tr>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->email}}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email}}</td>
                                     <td>.............</td>
                                     <td>
                                         <div class=" d-flex grid ">
 
                                             <div class="g-col-4 ml-3">
-                                                <div class="editbtn" type="button" value="{{ $item->id }}">
-                                                    <i class="fa fa-edit" style="color: #0b3544;"></i>
+                                                <div class="editbtn" type="button" value="{{ $user->id }}">
+                                                    <i class="fa fa-edit" style="color: #1b440b;"></i>
                                                 </div>
                                             </div>
                                             <div class="g-col-4 ml-3">
-                                                <div class="deletebtn" type="button" value="{{ $item->id }}">
+                                                <div class="deletebtn" type="button" value="{{ $user->id }}">
                                                     <i class="fa fa-trash" style="color: #ec270d;"></i>
                                                 </div>
                                             </div>
                                     </td>
                                 </tr>
-                            @endforeach
+
                         </tbody>
                     </table>
                 </div>
@@ -75,9 +73,9 @@
 
 
     <!-- Modal-->
-    @include('Admin.pages.File_User.deleteUser')
-    @include('Admin.pages.File_User.editUser')
-    @include('Admin.pages.File_User.addUser')
+    @include('Etudiant.pages.File_User.deleteUser')
+    @include('Etudiant.pages.File_User.editUser')
+
 
     <!-- Modal-->
 @endsection
@@ -97,7 +95,7 @@
                 $('#ModalEdit').modal('show');
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('user.edit', ':id') }}".replace(':id', id),
+                    url: "{{ route('etudiant.edit', ':id') }}".replace(':id', id),
                     success: function(response) {
                         console.log(response);
                         $('#name').val(response.user.name);

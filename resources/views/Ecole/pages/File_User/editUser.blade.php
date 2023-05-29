@@ -1,10 +1,10 @@
 <div class="modal fade"  id="ModalEdit" >
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content ">
-            <form  action="{{ route('update-user') }}" data-toggle="validator" role="form" method="POST">
+            <form  action="{{ route('update-ecole') }}" data-toggle="validator" role="form" method="POST">
                @csrf
                @method('PUT')
-                <div class="modal-header py-1" style="background-color:#0b3544;">
+                <div class="modal-header py-1" style="background-color:#44300b;">
                     <h4 class="modal-title text-white">Modification</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
@@ -16,7 +16,7 @@
                         <div class="col-md-6">
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                              <input type="hidden" id="id" name="id" required />
-                             <input type="text" value="" name="role" required />
+                             <input type="hidden" id="role" name="role" required />
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

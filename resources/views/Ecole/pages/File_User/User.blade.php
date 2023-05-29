@@ -1,4 +1,4 @@
-@extends('Admin.pages.layout.header')
+@extends('Ecole.pages.layout.header')
 @section('user')
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -18,8 +18,8 @@
 
     <div class="container mb-3 ">
         <div class="card">
-            <div class="card-header" style="background-color:#0b3544;">
-                <h2 class="card-title text-white fw-bolder">Utilisateurs Admin</h2>
+            <div class="card-header" style="background-color:#44300b;">
+                <h2 class="card-title text-white fw-bolder">Utilisateurs Ecole</h2>
                 <div class="card-tools">
 
                 </div>
@@ -28,8 +28,8 @@
             <!-- /.card-header -->
             <div class="card-body">
                 <a id="btnModalFormOrganisteur" href="#modalFormOrganisteur" class="btn text-white mb-4"
-                    style="background-color:#0b3544;" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
-                        class="fas fa-plus-circle"></i> <span>Ajouter une ecole</span></a>
+                    style="background-color:#44300b;" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
+                        class="fas fa-plus-circle"></i> <span>Ajouter un etudiant</span></a>
                 <div class="dataTable-container">
                     <table id="dtBasictable-a" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
@@ -51,7 +51,7 @@
 
                                             <div class="g-col-4 ml-3">
                                                 <div class="editbtn" type="button" value="{{ $item->id }}">
-                                                    <i class="fa fa-edit" style="color: #0b3544;"></i>
+                                                    <i class="fa fa-edit" style="color: #44300b;"></i>
                                                 </div>
                                             </div>
                                             <div class="g-col-4 ml-3">
@@ -75,9 +75,9 @@
 
 
     <!-- Modal-->
-    @include('Admin.pages.File_User.deleteUser')
-    @include('Admin.pages.File_User.editUser')
-    @include('Admin.pages.File_User.addUser')
+    @include('Ecole.pages.File_User.deleteUser')
+    @include('Ecole.pages.File_User.editUser')
+    @include('Ecole.pages.File_User.addUser')
 
     <!-- Modal-->
 @endsection
@@ -97,7 +97,7 @@
                 $('#ModalEdit').modal('show');
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('user.edit', ':id') }}".replace(':id', id),
+                    url: "{{ route('ecole.edit', ':id') }}".replace(':id', id),
                     success: function(response) {
                         console.log(response);
                         $('#name').val(response.user.name);

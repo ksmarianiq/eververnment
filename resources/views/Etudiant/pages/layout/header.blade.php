@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Admin page</title>
+    <title>Etudiant page</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -235,15 +235,15 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color:#0b3544;">
+        <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color:#1b440b;">
             <!-- Brand Logo -->
             <a href="#" class="brand-link">
                 <img src="{{ asset('assets/dist/img/png-transparent-meeting-computer-icons-convention-conference-centre-business-reunion-text-public-relations-logo.png') }}"
                     alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">ADMIN</span>
+                <span class="brand-text font-weight-light">ETUDIANT</span>
             </a>
             <!-- Sidebar -->
-            <div class="sidebar" style="background-color:#0b3544;">
+            <div class="sidebar" style="background-color:#1b440b;">
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
@@ -267,7 +267,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('home.admin') }}" class="nav-link">
+                                    <a href="{{ route('home') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Dashboard </p>
                                     </a>
@@ -287,15 +287,16 @@
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>##########</p>
+                                        <p>############</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>##########</p>
+                                        <p>#############</p>
                                     </a>
                                 </li>
+
                             </ul>
                         </li>
                         <!-- -->
@@ -310,7 +311,7 @@
                             <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
-                                    <a href="{{ route('user.index') }}" class="nav-link">
+                                    <a href="{{ route('etudiant.index') }}" class="nav-link">
                                         <i class="nav-icon far fa-user text-info"></i>
                                         <p>Utilisateurs</p>
                                     </a>
